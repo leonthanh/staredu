@@ -74,6 +74,7 @@ $(document).on('keydown', function(e) {
   }
 });
 
+// Giả sử bạn đã có biến userAnswers, questions, score, ...
 $('#btnCheck').off('click').on('click', function () {
   let score = 0;
   questions.forEach(q => {
@@ -81,14 +82,12 @@ $('#btnCheck').off('click').on('click', function () {
       score += 1;
     }
   });
-  // Tạo popup đơn giản
-  if ($('#popin-submit').length) return; // tránh tạo nhiều lần
+
+  // Hiện popup NGAY LẬP TỨC
+  if ($('#popin-submit').length) return;
   $('body').append(`
-    <div id="popin-submit" style="
-      position:fixed;top:0;left:0;right:0;bottom:0;
-      background:rgba(0,0,0,0.3);z-index:2000;display:flex;align-items:center;justify-content:center;">
-      <div style="
-        background:#fff;padding:32px 24px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.18);min-width:220px;text-align:center;">
+    <div id="popin-submit" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:2000;display:flex;align-items:center;justify-content:center;">
+      <div style="background:#fff;padding:32px 24px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.18);min-width:220px;text-align:center;">
         <h2 style="color:#2575fc;margin-bottom:12px;">Đã nộp bài!</h2>
         <p>Bạn đã nộp bài thành công.</p>
         <p style="font-size:1.2em;font-weight:bold;color:#eab308;">Số điểm: ${score}/${questions.length}</p>
@@ -98,6 +97,40 @@ $('#btnCheck').off('click').on('click', function () {
   `);
   $('#closePopin').on('click', function () {
     $('#popin-submit').remove();
+  });
+
+  // Tạo PDF và gửi lên server (chạy nền)
+  let doc = new window.jspdf.jsPDF();
+  doc.setFont("helvetica", "normal");
+  doc.text('TEST RESULT', 10, 10);
+  doc.text('Time: ' + new Date().toLocaleString(), 10, 20);
+  doc.text('Score: ' + score + '/' + questions.length, 10, 30);
+
+  let y = 40;
+  questions.forEach(q => {
+    doc.text(
+      `Q${q.index}: Your answer: ${userAnswers[q.index] || '-'} | Correct: ${q.answer}`,
+      10, y
+    );
+    y += 10;
+  });
+
+  const arrayBuffer = doc.output('arraybuffer');
+  const pdfBlob = new Blob([arrayBuffer], { type: 'application/pdf' });
+
+  let formData = new FormData();
+  formData.append('pdf', pdfBlob, 'result.pdf');
+  formData.append('score', score);
+  formData.append('total', questions.length);
+  formData.append('time', new Date().toISOString());
+  formData.append('answers', JSON.stringify(userAnswers));
+
+  fetch('/submit', {
+    method: 'POST',
+    body: formData
+  }).catch(err => {
+    alert('Có lỗi khi gửi kết quả. Vui lòng thử lại!');
+    console.error(err);
   });
 });
 
@@ -240,10 +273,3 @@ $(document).on('change', '.question-options input[type="radio"]', function() {
   userAnswers[idx] = $(this).val();
 });
 // Lưu đáp án người dùng vào biến userAnswers
-
-
-$('.question-options input[type="radio"]').on('change', function() {
-  const idx = $(this).attr('name').replace('q', '');
-  userAnswers[idx] = $(this).val();
-});
-
