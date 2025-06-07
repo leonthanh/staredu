@@ -217,25 +217,6 @@ $(window).on('resize', function() {
     $('#leftPane, #rightPane').css('height', '');
   }
 });
-
-$(function() {
-  questions.forEach(q => {
-    $('#leftPane').append(
-      `<div class="panel-content left" data-index="${q.index}" style="display:none;">
-        ${q.left}
-      </div>`
-    );
-    $('#rightPane').append(
-      `<div class="panel-content right" data-index="${q.index}" style="display:none;">
-        ${q.right}
-      </div>`
-    );
-  });
- 
-  $('.panel-content.left[data-index="1"]').show();
-  $('.panel-content.right[data-index="1"]').show();
-});
-
 // Xử lý đánh dấu cờ cho từng câu
 $(document).on('click', '.flag-btn', function() {
   const idx = $(this).data('flag');
