@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>KET</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="placement-title">
+    <h1>Placement Test : KET</h1>
+    <h2>READING & WRITING</h2>
+  </div>
+  <div class="question">
+    <h3>Question 1-6</h3>
+    <div class="question-type">For each question, choose the correct answer.</div>
+  </div>
+  <div class="container" id="container">
+    <div class="pane left" id="leftPane" tabindex="0">
+      <% questions.forEach(q => { %>
+        <div class="panel-content left" data-index="<%= q.index %>" style="display:none;">
+          <%- q.left %>
+        </div>
+      <% }) %>
+    </div>
+    <div class="divider" id="divider" role="separator" aria-orientation="vertical" aria-valuemin="20" aria-valuemax="80" tabindex="0" aria-label="Thanh điều chỉnh kích thước chia hai vùng"></div>
+    <div class="pane right" id="rightPane" tabindex="0">
+      <% questions.forEach(q => { %>
+        <div class="panel-content right" data-index="<%= q.index %>" style="display:none;">
+          <%- q.right %>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <div class="nav-arrows">
+    <button id="btnPrev" aria-label="Previous"><span>&larr;</span></button>
+    <button id="btnNext" aria-label="Next"><span>&rarr;</span></button>
+  </div>
+  <% 
+  // Gom nhóm câu hỏi theo part
+  let parts = {};
+  questions.forEach(q => {
+    if (!parts[q.part]) parts[q.part] = [];
+    parts[q.part].push(q);
+  });
+  let partKeys = Object.keys(parts).sort((a, b) => a - b);
+%>
+<nav class="navbar" id="navbar">
+  <% partKeys.forEach((part, idx) => { %>
+    <button id="btnPart<%= part %>" data-part-index="<%= idx %>">Part <%= part %></button>
+    <div id="numberButtonsContainer<%= part %>" class="numberButtonsContainer">
+      <% parts[part].forEach(q => { %>
+        <button type="button" class="btn-number" data-index="<%= q.index %>"><%= q.index %></button>
+      <% }) %>
+    </div>
+  <% }) %>
+  <button id="btnCheck" class="btn-check" aria-label="Nộp bài" style="margin-left:auto;">
+    <span class="tick-yellow"><i class="fas fa-check"></i></span> Nộp bài
+  </button>
+</nav>
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script id="questions-data" type="application/json">
+    <%- JSON.stringify(questions) %>
+  </script>
+  <script>
+    window.questions = JSON.parse(document.getElementById('questions-data').textContent);
+  </script>
+  <script src="/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+</html>
+<script>
+  let $allBtns = $('.btn-number');
+</script>
+
+
