@@ -375,7 +375,5 @@ function runExamTimer() {
 function updateTimerDisplay(seconds) {
   let m = Math.floor(seconds / 60);
   let s = seconds % 60;
-  $('#exam-timer').text(
-    (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s
-  );
+  $('#exam-timer').text((m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s);
 };

@@ -54,9 +54,58 @@ const questions = [
         </div>`,
         answer: `A`,
     },
-    
-
-  // Thêm các câu hỏi khác vào đây theo cấu trúc tương tự
+    {
+    index: 5,
+    part: 1,    
+    left: `<img src="./images/ket5.png" alt="cau hoi so 5">`,
+    right: `
+      <strong>5</strong> <br /> <button class="flag-btn" data-flag="5" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+      <h4>Jack's mother says</h4>
+      <div class="question-options">
+        <label><input type="radio" name="q5" value="A"> A. there is a problem with the heating..</label><br>
+        <label><input type="radio" name="q5" value="B"> B. she's left some food ready for Jack.</label><br>
+        <label><input type="radio" name="q5" value="C"> C. she'll be home at the usual time.</label>
+      </div>`,
+    answer: `B`,
+    },
+    {
+    index: 6,
+    part: 1,
+    left: `<img src="./images/ket6.png" alt="cau hoi so 6">`,
+    right: `
+      <strong>6</strong> <br /> <button class="flag-btn" data-flag="6" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+      <h4>The school magazine</h4>
+      <div class="question-options">
+        <label><input type="radio" name="q6" value="A"> A. will be available on Tuesday.</label><br>
+        <label><input type="radio" name="q6" value="B"> B. is looking for writers.</label><br>
+        <label><input type="radio" name="q6" value="C"> C. needs new readers.</label>
+      </div>`,
+    answer: `B`,
+    },
+    // {
+    // index: 7,8,9,10,11,12,13,
+    // part: 2,
+    // left: `Nosara, Costa Rica
+// From the centre of the town of Nosara, you can easily walk to several good beaches for
+// beginner surfers. The sea is warm all year round and the weather is beautiful, so you'll be
+// surprised by how quiet the beaches always are. There are many excellent surf teachers
+// around the town, and their prices aren't high. The town's also famous for its wildlife park,
+// where you can see some amazing sea animals.
+// Agadir, Morocco
+// The area around Agadir in the south of Morocco is very popular with surfers. Beginners need
+// to go in autumn when the sea is safe and the water is nice and warm. Experienced surfers
+// will enjoy it more in winter when the waves are big and exciting. From the city you can drive
+// to many lovely beaches in less than 20 minutes. The area's well known for having a large
+// number of surf camps. These are comfortable and friendly and don't cost much. Book for at
+// least three days, to make the most of your time.
+// Inch Marlow, Barbados
+// A surprising number of people haven't heard that the southern side of the island of Barbados
+// is excellent for beginner surfers. However, Zed Layson, a famous surfer, has a school there
+// at Surfer's Point, which is excellent for those who want to try the sport for the first time. As
+// well as good teachers, there is always a photographer waiting to take a picture of you on
+// your surfboard. In summer it rains a lot, but the water is warm so surfing is still possible.`,
+    // }
+    // Thêm các câu hỏi khác vào đây theo cấu trúc tương tự
 ];
 
 // Export danh sách câu hỏi
