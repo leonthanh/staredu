@@ -25,7 +25,7 @@ app.use(bodyParser.json()); // Thêm dòng này để đọc JSON từ client
 
 // Trang chủ
 app.get('/', (req, res) => {
-  res.render('index', { questions });
+  res.render('index', { questions }); // Không kiểm tra ở đây, kiểm tra ở client
 });
 
 // API lấy dữ liệu câu hỏi (nếu cần AJAX)
@@ -85,6 +85,10 @@ app.post('/login', (req, res) => {
   if (fs.existsSync(USERS_FILE)) users = JSON.parse(fs.readFileSync(USERS_FILE));
   if (users.find(u => u.phone === phone && u.name === name)) return res.json({ success: true });
   res.json({ success: false, message: 'Wrong name or phone!' });
+});
+
+app.get('/login', (req, res) => {
+  res.render('login');
 });
 
 const PORT = process.env.PORT || 3000;

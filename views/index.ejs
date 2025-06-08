@@ -61,24 +61,17 @@
     <span class="tick-yellow"><i class="fas fa-check"></i></span> Nộp bài
   </button>
 </nav>
-
-  <div id="loginModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:3000;display:flex;align-items:center;justify-content:center;">
-    <div style="background:#fff;padding:32px 24px;border-radius:12px;min-width:320px;box-shadow:0 4px 24px rgba(0,0,0,0.18);">
-      <h2 id="loginTitle" style="text-align:center;">Login</h2>
-      <div id="loginError" style="color:red;text-align:center;margin-bottom:8px;display:none;"></div>
-      <input id="loginName" type="text" placeholder="Full name" style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #ccc;">
-      <input id="loginPhone" type="text" placeholder="Phone number" style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #ccc;">
-      <input id="loginPass" type="password" placeholder="Password" style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #ccc;">
-      <button id="btnLogin" style="width:100%;padding:8px;border-radius:8px;background:#2575fc;color:#fff;font-weight:bold;border:none;">Login</button>
-      <div style="text-align:center;margin-top:12px;">
-        <span id="toRegister" style="color:#2575fc;cursor:pointer;">Register</span>
-      </div>
-    </div>
-  </div>
-
+ 
   <div id="exam-timer" style="position:fixed;top:18px;right:24px;z-index:3000;font-size:1.3em;font-weight:bold;color:#e11d48;display:none;">
   60:00
 </div>
+
+  <div id="startExamModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:4000;display:flex;align-items:center;justify-content:center;">
+    <div style="background:#fff;padding:32px 24px;border-radius:12px;min-width:220px;text-align:center;">
+      <h2 style="color:#2575fc;margin-bottom:12px;">Ready to start?</h2>
+      <button id="btnStartExam" style="margin-top:18px;padding:8px 18px;border-radius:8px;border:none;background:#2575fc;color:#fff;font-weight:bold;cursor:pointer;">Start</button>
+    </div>
+  </div>
 
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script id="questions-data" type="application/json">

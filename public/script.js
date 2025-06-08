@@ -76,6 +76,10 @@ $(document).on('keydown', function(e) {
 
 // Giả sử bạn đã có biến userAnswers, questions, score, ...
 $('#btnCheck').off('click').on('click', function () {
+  finishExam();
+});
+
+function finishExam() {
   let score = 0;
   questions.forEach(q => {
     if (userAnswers[q.index] === q.answer) {
@@ -140,7 +144,17 @@ $('#btnCheck').off('click').on('click', function () {
     alert('Có lỗi khi gửi kết quả. Vui lòng thử lại!');
     console.error(err);
   });
-});
+
+  // Sau khi gửi xong:
+  localStorage.removeItem('examStartTime');
+  localStorage.removeItem('userName');
+  localStorage.removeItem('userPhone');
+  localStorage.removeItem('userAnswers');
+  localStorage.removeItem('flaggedQuestions');
+  setTimeout(function() {
+    window.location.href = '/login';
+  }, 1500); // Đợi 1.5s cho user xem popup điểm
+}
 
 let isResizing = false;
 let startX = 0;
@@ -273,84 +287,68 @@ $(document).on('click', '.flag-btn', function() {
     // Bỏ icon cờ
     $btn.find('.flag-on-navbar').remove();
   }
+
+  // Lưu trạng thái cờ vào localStorage
+  let flagged = JSON.parse(localStorage.getItem('flaggedQuestions') || '{}');
+  flagged[idx] = $(this).hasClass('active');
+  localStorage.setItem('flaggedQuestions', JSON.stringify(flagged));
 });
 // Xử lý sự kiện chọn đáp án
 // Lưu đáp án người dùng vào biến userAnswers
 $(document).on('change', '.question-options input[type="radio"]', function() {
   const idx = $(this).attr('name').replace('q', '');
   userAnswers[idx] = $(this).val();
+  localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
 });
 // Lưu đáp án người dùng vào biến userAnswers
-
-function showLogin(isRegister = false) {
-  $('#loginTitle').text(isRegister ? 'Register' : 'Login');
-  $('#btnLogin').text(isRegister ? 'Register' : 'Login');
-  $('#loginError').hide();
-  $('#loginName').val('');
-  $('#loginPhone').val('');
-  $('#loginModal').show();
-  $('#btnLogin').off('click').on('click', function () {
-    const name = $('#loginName').val().trim();
-    const phone = $('#loginPhone').val().trim();
-    if (!name || name.length < 2) {
-      $('#loginError').text('Name is required!').show(); return;
-    }
-    if (!/^0\d{9,10}$/.test(phone)) {
-      $('#loginError').text('Phone number is invalid!').show(); return;
-    }
-    $.ajax({
-      url: isRegister ? '/register' : '/login',
-      method: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({ name, phone }),
-      success: function (res) {
-        if (res.success) {
-          $('#loginModal').hide();
-          localStorage.setItem('userName', name);
-          localStorage.setItem('userPhone', phone);
-
-          // Hiện popup thành công với nút Bắt đầu làm bài
-          if ($('#popin-login-success').length) return;
-          $('body').append(`
-            <div id="popin-login-success" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:4000;display:flex;align-items:center;justify-content:center;">
-              <div style="background:#fff;padding:32px 24px;border-radius:12px;min-width:220px;text-align:center;">
-                <h2 style="color:#22c55e;margin-bottom:12px;">${isRegister ? 'Register' : 'Login'} successful!</h2>
-                <button id="btnStartExam" style="margin-top:18px;padding:8px 18px;border-radius:8px;border:none;background:#2575fc;color:#fff;font-weight:bold;cursor:pointer;">Start</button>
-              </div>
-            </div>
-          `);
-          $('#btnStartExam').on('click', function () {
-            $('#popin-login-success').remove();
-            startExamTimer(); // Bắt đầu tính giờ
-          });
-        } else {
-          $('#loginError').text(res.message || 'Login/Register failed!').show();
-        }
-      }
-    });
-  });
-}
 $(document).ready(function () {
-  $('#toRegister').on('click', function () {
-    showLogin($('#btnLogin').text() === 'Login');
-  });
+  // Nếu chưa đăng nhập thì về trang login
   if (!localStorage.getItem('userPhone') || !localStorage.getItem('userName')) {
-    showLogin(false);
+    window.location.href = '/login';
+  }
+
+  // Nếu đang làm bài dở, chỉ chạy lại đồng hồ, KHÔNG hiện popup
+  if (localStorage.getItem('examStartTime')) {
+    $('#startExamModal').hide(); // Đảm bảo popup bị ẩn
+    runExamTimer();
   } else {
-    $('#loginModal').hide();
-    // Nếu đang làm bài dở, chạy lại đồng hồ
-    if (localStorage.getItem('examStartTime')) {
-      runExamTimer();
+    // Hiện popup bắt đầu làm bài
+    $('#startExamModal').show();
+    $('#btnStartExam').off('click').on('click', function () {
+      $('#startExamModal').hide();
+      startExamTimer();
+    });
+  }
+
+  // Khôi phục đáp án đã chọn nếu có
+  let savedAnswers = localStorage.getItem('userAnswers');
+  if (savedAnswers) {
+    userAnswers = JSON.parse(savedAnswers);
+    for (let idx in userAnswers) {
+      $(`.question-options input[name="q${idx}"][value="${userAnswers[idx]}"]`).prop('checked', true);
+    }
+  }
+
+  // Khôi phục trạng thái cờ khi load lại trang
+  let flagged = JSON.parse(localStorage.getItem('flaggedQuestions') || '{}');
+  for (let idx in flagged) {
+    if (flagged[idx]) {
+      $(`.flag-btn[data-flag="${idx}"]`).addClass('active');
+      const $btn = $(`.btn-number[data-index="${idx}"]`);
+      if ($btn.find('.flag-on-navbar').length === 0) {
+        $btn.prepend('<span class="flag-on-navbar">&#9873;</span>');
+      }
+    } else {
+      $(`.flag-btn[data-flag="${idx}"]`).removeClass('active');
+      $(`.btn-number[data-index="${idx}"]`).find('.flag-on-navbar').remove();
     }
   }
 });
 
 let examTimerInterval = null;
 function startExamTimer() {
-  // Nếu đã có thời gian bắt đầu thì không ghi đè
-  if (!localStorage.getItem('examStartTime')) {
-    localStorage.setItem('examStartTime', Date.now().toString());
-  }
+  // Ghi lại thời gian bắt đầu
+  localStorage.setItem('examStartTime', Date.now().toString());
   runExamTimer();
 }
 
@@ -369,9 +367,8 @@ function runExamTimer() {
     updateTimerDisplay(remain);
     if (remain <= 0) {
       clearInterval(examTimerInterval);
-      $('#exam-timer').text('Time\'s up!');
-      // $('#btnCheck').trigger('click'); // Tự động nộp bài nếu muốn
-      localStorage.removeItem('examStartTime');
+      updateTimerDisplay(0);
+      finishExam(); // Hết giờ thì tự động nộp bài
     }
   }, 1000);
 }

@@ -473,8 +473,8 @@ h1 {
 .flag-btn {
   background: none;
   border: none;
-  color: #eab308;
-  font-size: 1.1em;
+  color: #e414f7;
+  font-size: 1.8em;
   cursor: pointer;
   margin-bottom: 8px;
   margin-right: 8px;
@@ -483,7 +483,7 @@ h1 {
 }
 .flag-btn.active,
 .flag-btn:active {
-  color: #f59e42;
+  color: #f321e9;
 }
 .flag-icon {
   font-size: 1.2em;
@@ -492,7 +492,7 @@ h1 {
 }
 .flag-on-navbar {
   display: block;
-  color: #eab308;
+  color: #e01dfa;
   font-size: 1em;
   line-height: 1;
   margin-bottom: 2px;
