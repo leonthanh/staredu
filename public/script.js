@@ -378,4 +378,4 @@ function updateTimerDisplay(seconds) {
   $('#exam-timer').text(
     (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s
   );
-}
+};

@@ -14,6 +14,7 @@
   </style>
 </head>
 <body>
+  <%- include("partials/header.ejs") %>
   <div class="login-box">
     <h2 id="loginTitle">Login</h2>
     <div id="loginError" class="error" style="display:none;"></div>
@@ -69,5 +70,6 @@
     }
     showLogin(false);
   </script>
+  <%- include("partials/footer.ejs") %>
 </body>
 </html>

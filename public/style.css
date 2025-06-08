@@ -164,7 +164,7 @@ h1 {
   nav.navbar button {
     background: #fff;
     border: none;
-    color: #2575fc;
+    color: #071952;
     font-weight: bold;
     font-size: 1rem;
     margin: 5px 5px;
@@ -179,8 +179,9 @@ h1 {
   }
   nav.navbar button:hover,
   nav.navbar button:focus {
-    background: #2f20ffaf;
+    background: #071952;
     outline: none;
+    color: white;
   }
   /* Đảm bảo tất cả các nút Part đều bằng nhau */
 #btnPart1,
@@ -197,7 +198,7 @@ h1 {
   padding: 5px 10px;
   margin-right: 5px;
   background: #fff;
-  color: #2575fc;
+  color: #071952;
   border: none;
   cursor: pointer;
   transition: all 0.3s;
@@ -234,7 +235,7 @@ h1 {
   transition: background 0.2s, color 0.2s;
 }
 .nav-arrows button:hover {
-  background: #2575fc;
+  background: #071952;
   color: #fff;
 }
 .numberButtonsContainer button.active {
@@ -260,7 +261,7 @@ h1 {
   margin-left: auto;
 }
 .btn-check:hover {
-  background: #2575fc;
+  background: #071952;
   color: #fff;
 }
 
