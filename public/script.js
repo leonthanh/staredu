@@ -83,6 +83,10 @@ $('#btnCheck').off('click').on('click', function () {
     }
   });
 
+  // Lấy thông tin user
+  const userName = localStorage.getItem('userName') || '';
+  const userPhone = localStorage.getItem('userPhone') || '';
+
   // Hiện popup NGAY LẬP TỨC
   if ($('#popin-submit').length) return;
   $('body').append(`
@@ -103,10 +107,12 @@ $('#btnCheck').off('click').on('click', function () {
   let doc = new window.jspdf.jsPDF();
   doc.setFont("helvetica", "normal");
   doc.text('TEST RESULT', 10, 10);
-  doc.text('Time: ' + new Date().toLocaleString(), 10, 20);
-  doc.text('Score: ' + score + '/' + questions.length, 10, 30);
+  doc.text('Name: ' + userName, 10, 20);
+  doc.text('Phone: ' + userPhone, 10, 30);
+  doc.text('Time: ' + new Date().toLocaleString(), 10, 40);
+  doc.text('Score: ' + score + '/' + questions.length, 10, 50);
 
-  let y = 40;
+  let y = 60;
   questions.forEach(q => {
     doc.text(
       `Q${q.index}: Your answer: ${userAnswers[q.index] || '-'} | Correct: ${q.answer}`,
@@ -124,6 +130,8 @@ $('#btnCheck').off('click').on('click', function () {
   formData.append('total', questions.length);
   formData.append('time', new Date().toISOString());
   formData.append('answers', JSON.stringify(userAnswers));
+  formData.append('userName', userName);
+  formData.append('userPhone', userPhone);
 
   fetch('/submit', {
     method: 'POST',
@@ -273,3 +281,104 @@ $(document).on('change', '.question-options input[type="radio"]', function() {
   userAnswers[idx] = $(this).val();
 });
 // Lưu đáp án người dùng vào biến userAnswers
+
+function showLogin(isRegister = false) {
+  $('#loginTitle').text(isRegister ? 'Register' : 'Login');
+  $('#btnLogin').text(isRegister ? 'Register' : 'Login');
+  $('#loginError').hide();
+  $('#loginName').val('');
+  $('#loginPhone').val('');
+  $('#loginModal').show();
+  $('#btnLogin').off('click').on('click', function () {
+    const name = $('#loginName').val().trim();
+    const phone = $('#loginPhone').val().trim();
+    if (!name || name.length < 2) {
+      $('#loginError').text('Name is required!').show(); return;
+    }
+    if (!/^0\d{9,10}$/.test(phone)) {
+      $('#loginError').text('Phone number is invalid!').show(); return;
+    }
+    $.ajax({
+      url: isRegister ? '/register' : '/login',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ name, phone }),
+      success: function (res) {
+        if (res.success) {
+          $('#loginModal').hide();
+          localStorage.setItem('userName', name);
+          localStorage.setItem('userPhone', phone);
+
+          // Hiện popup thành công với nút Bắt đầu làm bài
+          if ($('#popin-login-success').length) return;
+          $('body').append(`
+            <div id="popin-login-success" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:4000;display:flex;align-items:center;justify-content:center;">
+              <div style="background:#fff;padding:32px 24px;border-radius:12px;min-width:220px;text-align:center;">
+                <h2 style="color:#22c55e;margin-bottom:12px;">${isRegister ? 'Register' : 'Login'} successful!</h2>
+                <button id="btnStartExam" style="margin-top:18px;padding:8px 18px;border-radius:8px;border:none;background:#2575fc;color:#fff;font-weight:bold;cursor:pointer;">Start</button>
+              </div>
+            </div>
+          `);
+          $('#btnStartExam').on('click', function () {
+            $('#popin-login-success').remove();
+            startExamTimer(); // Bắt đầu tính giờ
+          });
+        } else {
+          $('#loginError').text(res.message || 'Login/Register failed!').show();
+        }
+      }
+    });
+  });
+}
+$(document).ready(function () {
+  $('#toRegister').on('click', function () {
+    showLogin($('#btnLogin').text() === 'Login');
+  });
+  if (!localStorage.getItem('userPhone') || !localStorage.getItem('userName')) {
+    showLogin(false);
+  } else {
+    $('#loginModal').hide();
+    // Nếu đang làm bài dở, chạy lại đồng hồ
+    if (localStorage.getItem('examStartTime')) {
+      runExamTimer();
+    }
+  }
+});
+
+let examTimerInterval = null;
+function startExamTimer() {
+  // Nếu đã có thời gian bắt đầu thì không ghi đè
+  if (!localStorage.getItem('examStartTime')) {
+    localStorage.setItem('examStartTime', Date.now().toString());
+  }
+  runExamTimer();
+}
+
+function runExamTimer() {
+  let startTime = parseInt(localStorage.getItem('examStartTime'), 10);
+  let duration = 60 * 60; // 60 phút (giây)
+  let elapsed = Math.floor((Date.now() - startTime) / 1000);
+  let remain = duration - elapsed;
+  if (remain < 0) remain = 0;
+
+  $('#exam-timer').show();
+  updateTimerDisplay(remain);
+  if (examTimerInterval) clearInterval(examTimerInterval);
+  examTimerInterval = setInterval(function () {
+    remain--;
+    updateTimerDisplay(remain);
+    if (remain <= 0) {
+      clearInterval(examTimerInterval);
+      $('#exam-timer').text('Time\'s up!');
+      // $('#btnCheck').trigger('click'); // Tự động nộp bài nếu muốn
+      localStorage.removeItem('examStartTime');
+    }
+  }, 1000);
+}
+function updateTimerDisplay(seconds) {
+  let m = Math.floor(seconds / 60);
+  let s = seconds % 60;
+  $('#exam-timer').text(
+    (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s
+  );
+}

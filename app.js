@@ -63,5 +63,29 @@ app.post('/submit', upload.single('pdf'), async (req, res) => {
   }
 });
 
+const USERS_FILE = 'users.json';
+
+// Đăng ký
+app.post('/register', (req, res) => {
+  const { name, phone } = req.body;
+  if (!name || name.length < 2) return res.json({ success: false, message: 'Name is required!' });
+  if (!/^0\d{9,10}$/.test(phone)) return res.json({ success: false, message: 'Invalid phone number!' });
+  let users = [];
+  if (fs.existsSync(USERS_FILE)) users = JSON.parse(fs.readFileSync(USERS_FILE));
+  if (users.find(u => u.phone === phone)) return res.json({ success: false, message: 'Phone already registered!' });
+  users.push({ name, phone });
+  fs.writeFileSync(USERS_FILE, JSON.stringify(users));
+  res.json({ success: true });
+});
+
+// Đăng nhập
+app.post('/login', (req, res) => {
+  const { name, phone } = req.body;
+  let users = [];
+  if (fs.existsSync(USERS_FILE)) users = JSON.parse(fs.readFileSync(USERS_FILE));
+  if (users.find(u => u.phone === phone && u.name === name)) return res.json({ success: true });
+  res.json({ success: false, message: 'Wrong name or phone!' });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
