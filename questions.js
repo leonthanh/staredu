@@ -11,6 +11,84 @@ const reading7_13 = `
   A surprising number of people haven't heard that the southern side of the island of Barbados is excellent for beginner surfers. However, Zed Layson, a famous surfer, has a school there at Surfer's Point, which is excellent for those who want to try the sport for the first time. As well as good teachers, there is always a photographer waiting to take a picture of you on your surfboard. In summer it rains a lot, but the water is warm so surfing is still possible.
 `;
 
+const reading7_13_table = `
+  <table class="multi-question-table" style="width:100%;margin-bottom:16px;">
+    <thead>
+      <tr>
+        <th></th>
+        <th style="text-align:center;">Nosara</th>
+        <th style="text-align:center;">Agadir</th>
+        <th style="text-align:center;">Inch Marlow</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="q7">
+        <td>
+          7. Which place is only good for beginners at one time of year?
+          <button class="flag-btn" data-flag="7" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+        </td>
+        <td style="text-align:center;"><label><input type="radio" name="q7" value="A"> A </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q7" value="B"> B </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q7" value="C"> C </label></td>
+      </tr>
+      <tr id="q8">
+        <td>
+          8. Where can you learn from a well-known teacher?
+          <button class="flag-btn" data-flag="8" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+        </td>
+        <td style="text-align:center;"><label><input type="radio" name="q8" value="A"> A </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q8" value="B"> B </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q8" value="C"> C </label></td>
+      </tr>
+      <tr id="q9">
+        <td>
+          9. Which place has something to do when you're not surfing?
+          <button class="flag-btn" data-flag="9" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+        </td>
+        <td style="text-align:center;"><label><input type="radio" name="q9" value="A"> A </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q9" value="B"> B </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q9" value="C"> C </label></td>
+      </tr>
+      <tr id="q10">
+        <td>
+          10. Which place has wet weather at one time of the year?
+          <button class="flag-btn" data-flag="10" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+        </td>
+        <td style="text-align:center;"><label><input type="radio" name="q10" value="A"> A </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q10" value="B"> B </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q10" value="C"> C </label></td>
+      </tr>
+      <tr id="q11">
+        <td>
+          11. Where is it possible to stay without paying a lot?
+          <button class="flag-btn" data-flag="11" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+        </td>
+        <td style="text-align:center;"><label><input type="radio" name="q11" value="A"> A </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q11" value="B"> B </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q11" value="C"> C </label></td>
+      </tr>
+      <tr id="q12">
+        <td>
+          12. Which place is not well known as a good place to learn to surf?
+          <button class="flag-btn" data-flag="12" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+        </td>
+        <td style="text-align:center;"><label><input type="radio" name="q12" value="A"> A </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q12" value="B"> B </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q12" value="C"> C </label></td>
+      </tr>
+      <tr id="q13">
+        <td>
+          13. From which town can you get to the surfing beaches on foot?
+          <button class="flag-btn" data-flag="13" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+        </td>
+        <td style="text-align:center;"><label><input type="radio" name="q13" value="A"> A </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q13" value="B"> B </label></td>
+        <td style="text-align:center;"><label><input type="radio" name="q13" value="C"> C </label></td>
+      </tr>
+    </tbody>
+  </table>
+`;
+
 const questions = [
   {
     index: 1,
@@ -99,63 +177,7 @@ const questions = [
       index: 7,
       part: 2,
       left: reading7_13,
-      right: `
-        <table class="multi-question-table" style="width:100%;margin-bottom:16px;">
-          <thead>
-            <tr>
-              <th></th>
-              <th style="text-align:center;">Nosara</th>
-              <th style="text-align:center;">Agadir</th>
-              <th style="text-align:center;">Inch Marlow</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr id="q7">
-              <td>7. Which place is only good for beginners at one time of year?</td>
-              <td style="text-align:center;"><label><input type="radio" name="q7" value="A"> A </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q7" value="B"> B </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q7" value="C"> C </label></td>
-            </tr>
-            <tr id="q8">
-              <td>8. Where can you learn from a well-known teacher?</td>
-              <td style="text-align:center;"><label><input type="radio" name="q8" value="A"> A </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q8" value="B"> B </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q8" value="C"> C </label></td>
-            </tr>
-            <tr id="q9">
-              <td>9. Which place has something to do when you're not surfing?</td>
-              <td style="text-align:center;"><label><input type="radio" name="q9" value="A"> A </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q9" value="B"> B </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q9" value="C"> C </label></td>
-            </tr>
-            <tr id="q10">
-              <td>10. Which place has wet weather at one time of the year?</td>
-              <td style="text-align:center;"><label><input type="radio" name="q10" value="A"> A </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q10" value="B"> B </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q10" value="C"> C </label></td>
-            </tr>
-            <tr id="q11">
-              <td>11. Where is it possible to stay without paying a lot?</td>
-              <td style="text-align:center;"><label><input type="radio" name="q11" value="A"> A </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q11" value="B"> B </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q11" value="C"> C </label></td>
-            </tr>
-            <tr id="q12">
-              <td>12. Which place is not well known as a good place to learn to surf?</td>
-              <td style="text-align:center;"><label><input type="radio" name="q12" value="A"> A </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q12" value="B"> B </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q12" value="C"> C </label></td>
-            </tr>
-            <tr id="q13">
-              <td>13. From which town can you get to the surfing beaches on foot?</td>
-              <td style="text-align:center;"><label><input type="radio" name="q13" value="A"> A </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q13" value="B"> B </label></td>
-              <td style="text-align:center;"><label><input type="radio" name="q13" value="C"> C </label></td>
-            </tr>
-          </tbody>
-        </table>
-      `,
-      // Bạn có thể thêm trường answers nếu muốn chấm tự động:
+      right: reading7_13_table,
       answers: {
         7: "B",
         8: "C",
@@ -164,9 +186,51 @@ const questions = [
         11: "B",
         12: "C",
         13: "A"
-      }
+      },
+      answer: "B" // đáp án cho câu 7
     },
-    
+    {
+      index: 8,
+      part: 2,
+      left: reading7_13,
+      right: reading7_13_table,
+      answer: "C"
+    },
+    {
+      index: 9,
+      part: 2,
+      left: reading7_13,
+      right: reading7_13_table,
+      answer: "A"
+    },
+    {
+      index: 10,
+      part: 2,
+      left: reading7_13,
+      right: reading7_13_table,
+      answer: "C"
+    },
+    {
+      index: 11,
+      part: 2,
+      left: reading7_13,
+      right: reading7_13_table,
+      answer: "B"
+    },
+    {
+      index: 12,
+      part: 2,
+      left: reading7_13,
+      right: reading7_13_table,
+      answer: "C"
+    },
+    {
+      index: 13,
+      part: 2,
+      left: reading7_13,
+      right: reading7_13_table,
+      answer: "A"
+    },
 ];
 
 // Export danh sách câu hỏi

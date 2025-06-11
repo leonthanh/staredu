@@ -205,49 +205,42 @@ $('#btn1').hover(
 // Sự kiện click nút số
 $('.btn-number').on('click', function() {
   var idx = $(this).data('index');
-  // Đánh dấu nút đang active
   $('.btn-number').removeClass('active');
   $(this).addClass('active');
-  // Hiện đúng panel
   $('.panel-content.left').hide();
   $('.panel-content.left[data-index="' + idx + '"]').show();
-  $('.panel-content.right').hide();
-  $('.panel-content.right[data-index="' + idx + '"]').show();
-  $(document).on('click', '.btn-number', function() {
-  var idx = $(this).data('index');
-  // Nếu là câu 7-13 (panel phải là bảng), cuộn đến đúng dòng
+
+  // Nếu là câu 7–13 thì chỉ show panel-part2
   if (idx >= 7 && idx <= 13) {
-    var row = $('#q' + idx);
-    if (row.length) {
-      // Cuộn mượt đến dòng câu hỏi trong panel phải
-      $('.multi-question-table').animate({
-        scrollTop: row.position().top + $('.multi-question-table').scrollTop() - 40
-      }, 300);
-      // Hoặc dùng scrollIntoView nếu không dùng jQuery animate:
-      // row[0].scrollIntoView({ behavior: "smooth", block: "center" });
-    }
+    $('.panel-content.right').hide();
+    $('#panel-part2').show();
+    setTimeout(function() {
+      restoreMultiQuestionAnswers();
+      // Cuộn đến đúng dòng
+      var row = $('#q' + idx);
+      if (row.length) {
+        row[0].scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 0);
+  } else {
+    $('.panel-content.right').hide();
+    $('.panel-content.right[data-index="' + idx + '"]').show();
   }
-});
-  // Đổi tiêu đề theo Part (nếu muốn)
-  let partNum = $(this).closest('.numberButtonsContainer').index() + 1;
-  // ... (bạn có thể thêm code đổi tiêu đề ở đây nếu cần)
 });
 
 // Hiển thị panel đầu tiên khi load trang
 $(document).ready(function() {
-  // Lấy chỉ số đầu tiên (ví dụ là 1)
   var firstIdx = $('.btn-number').first().data('index');
   $('.panel-content.left').hide();
   $('.panel-content.left[data-index="' + firstIdx + '"]').show();
-  $('.panel-content.right').hide();
-  $('.panel-content.right[data-index="' + firstIdx + '"]').show();
-  // Đặt chiều rộng mặc định cho hai panel là 50% khi load trang
-  var $container = $('#container');
-  var containerWidth = $container.width();
-  var dividerWidth = $('#divider').outerWidth();
-  var panelWidth = (containerWidth - dividerWidth) / 2;
-  $('#leftPane').css('width', panelWidth + 'px');
-  $('#rightPane').css('width', panelWidth + 'px');
+  if (firstIdx >= 7 && firstIdx <= 13) {
+    $('.panel-content.right').hide();
+    $('#panel-part2').show();
+    restoreMultiQuestionAnswers();
+  } else {
+    $('.panel-content.right').hide();
+    $('.panel-content.right[data-index="' + firstIdx + '"]').show();
+  }
 });
 
 // Resize dọc cho mobile
@@ -322,7 +315,60 @@ $(document).on('change', '.question-options input[type="radio"]', function() {
   userAnswers[idx] = $(this).val();
   localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
 });
-// Lưu đáp án người dùng vào biến userAnswers
+
+// Lưu đáp án khi chọn radio trong bảng 7-13
+$(document).on('change', '.multi-question-table input[type="radio"]', function() {
+  const idx = $(this).attr('name').replace('q', '');
+  userAnswers[idx] = $(this).val();
+  localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
+});
+
+// Khôi phục đáp án đã chọn nếu có
+let savedAnswers = localStorage.getItem('userAnswers');
+if (savedAnswers) {
+  userAnswers = JSON.parse(savedAnswers);
+  for (let idx in userAnswers) {
+    $(`.question-options input[name="q${idx}"][value="${userAnswers[idx]}"]`).prop('checked', true);
+  }
+}
+
+// Khôi phục trạng thái cờ khi load lại trang
+let flagged = JSON.parse(localStorage.getItem('flaggedQuestions') || '{}');
+for (let idx in flagged) {
+  if (flagged[idx]) {
+    $(`.flag-btn[data-flag="${idx}"]`).addClass('active');
+    const $btn = $(`.btn-number[data-index="${idx}"]`);
+    if ($btn.find('.flag-on-navbar').length === 0) {
+      $btn.prepend('<span class="flag-on-navbar">&#9873;</span>');
+    }
+  } else {
+    $(`.flag-btn[data-flag="${idx}"]`).removeClass('active');
+    $(`.btn-number[data-index="${idx}"]`).find('.flag-on-navbar').remove();
+  }
+}
+
+// Khôi phục đáp án đã chọn cho bảng 7-13
+function restoreMultiQuestionAnswers() {
+  for (let i = 7; i <= 13; i++) {
+    const ans = userAnswers[i];
+    if (ans) {
+      $(`.multi-question-table input[name="q${i}"][value="${ans}"]`).prop('checked', true);
+    }
+  }
+}
+
+// Gọi khi chuyển câu 7-13
+$('.btn-number').on('click', function() {
+  var idx = $(this).data('index');
+  // ...code chuyển panel...
+  setTimeout(function() {
+    if (idx >= 7 && idx <= 13) {
+      restoreMultiQuestionAnswers();
+    }
+  }, 0);
+});
+
+// Gọi khi load trang
 $(document).ready(function () {
   // Nếu chưa đăng nhập thì về trang login
   if (!localStorage.getItem('userPhone') || !localStorage.getItem('userName')) {
@@ -365,6 +411,9 @@ $(document).ready(function () {
       $(`.btn-number[data-index="${idx}"]`).find('.flag-on-navbar').remove();
     }
   }
+
+  // Khôi phục đáp án đã chọn cho bảng 7-13
+  restoreMultiQuestionAnswers();
 });
 
 let examTimerInterval = null;

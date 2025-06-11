@@ -46,11 +46,11 @@
     width: 100% !important; */
   }
   .pane.left {
-    background: linear-gradient(135deg, #BCCCDC 0%, #BCCCDC 100%);
+    background: linear-gradient(135deg, #f7fafa 0%, #f7fafa 100%);
     color: black;
   }
   .pane.right {
-    background: linear-gradient(135deg, #BCCCDC 0%, #BCCCDC 100%);
+    background: linear-gradient(135deg, #f7fafa 0%, #f7fafa 100%);
     color: black;
   }
 

@@ -28,10 +28,90 @@
     <div class="divider" id="divider" role="separator" aria-orientation="vertical" aria-valuemin="20" aria-valuemax="80" tabindex="0" aria-label="Thanh điều chỉnh kích thước chia hai vùng"></div>
     <div class="pane right" id="rightPane" tabindex="0">
       <% questions.forEach(q => { %>
-        <div class="panel-content right" data-index="<%= q.index %>" style="display:none;">
-          <%- q.right %>
-        </div>
+        <% if (q.index < 7 || q.index > 13) { %>
+          <div class="panel-content right" data-index="<%= q.index %>" style="display:none;">
+            <%- q.right %>
+          </div>
+        <% } %>
       <% }) %>
+      <!-- Panel phải duy nhất cho part 2 (câu 7–13) -->
+      <div class="panel-content right" id="panel-part2" style="display:none">
+        <table class="multi-question-table" style="width:100%;margin-bottom:16px;">
+          <thead>
+            <tr>
+              <th></th>
+              <th style="text-align:center;">Nosara</th>
+              <th style="text-align:center;">Agadir</th>
+              <th style="text-align:center;">Inch Marlow</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="q7">
+              <td>
+                7. Which place is only good for beginners at one time of year?
+                <button class="flag-btn" data-flag="7" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+              </td>
+              <td style="text-align:center;"><label><input type="radio" name="q7" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q7" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q7" value="C"> C </label></td>
+            </tr>
+            <tr id="q8">
+              <td>
+                8. Where can you learn from a well-known teacher?
+                <button class="flag-btn" data-flag="8" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+              </td>
+              <td style="text-align:center;"><label><input type="radio" name="q8" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q8" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q8" value="C"> C </label></td>
+            </tr>
+            <tr id="q9">
+              <td>
+                9. Which place has something to do when you're not surfing?
+                <button class="flag-btn" data-flag="9" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+              </td>
+              <td style="text-align:center;"><label><input type="radio" name="q9" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q9" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q9" value="C"> C </label></td>
+            </tr>
+            <tr id="q10">
+              <td>
+                10. Which place has wet weather at one time of the year?
+                <button class="flag-btn" data-flag="10" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+              </td>
+              <td style="text-align:center;"><label><input type="radio" name="q10" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q10" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q10" value="C"> C </label></td>
+            </tr>
+            <tr id="q11">
+              <td>
+                11. Where is it possible to stay without paying a lot?
+                <button class="flag-btn" data-flag="11" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+              </td>
+              <td style="text-align:center;"><label><input type="radio" name="q11" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q11" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q11" value="C"> C </label></td>
+            </tr>
+            <tr id="q12">
+              <td>
+                12. Which place is not well known as a good place to learn to surf?
+                <button class="flag-btn" data-flag="12" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+              </td>
+              <td style="text-align:center;"><label><input type="radio" name="q12" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q12" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q12" value="C"> C </label></td>
+            </tr>
+            <tr id="q13">
+              <td>
+                13. From which town can you get to the surfing beaches on foot?
+                <button class="flag-btn" data-flag="13" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
+              </td>
+              <td style="text-align:center;"><label><input type="radio" name="q13" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q13" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q13" value="C"> C </label></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -53,7 +133,10 @@
     <button id="btnPart<%= part %>" data-part-index="<%= idx %>">Part <%= part %></button>
     <div id="numberButtonsContainer<%= part %>" class="numberButtonsContainer">
       <% parts[part].forEach(q => { %>
-        <button type="button" class="btn-number" data-index="<%= q.index %>"><%= q.index %></button>
+        <button type="button" class="btn-number" data-index="<%= q.index %>">
+          <% /* Cờ sẽ được JS thêm động, không cần render ở đây */ %>
+          <%= q.index %>
+        </button>
       <% }) %>
     </div>
   <% }) %>
