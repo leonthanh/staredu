@@ -1,3 +1,16 @@
+const reading7_13 = `
+  <div style="text-align:center;">
+    <b>Three places to learn surfing</b><br>
+    <img src="./images/ket7_13.png" alt="surfing" style="max-width:220px;margin:12px auto;display:block;">
+  </div>
+  <b>Nosara, Costa Rica</b><br>
+  From the centre of the town of Nosara, you can easily walk to several good beaches for beginner surfers. The sea is warm all year round and the weather is beautiful, so you'll be surprised by how quiet the beaches always are. There are many excellent surf teachers around the town, and their prices aren't high. The town's also famous for its wildlife park, where you can see some amazing sea animals.<br><br>
+  <b>Agadir, Morocco</b><br>
+  The area around Agadir in the south of Morocco is very popular with surfers. Beginners need to go in autumn when the sea is safe and the water is nice and warm. Experienced surfers will enjoy it more in winter when the waves are big and exciting. From the city you can drive to many lovely beaches in less than 20 minutes. The area's well known for having a large number of surf camps. These are comfortable and friendly and don't cost much. Book for at least three days, to make the most of your time.<br><br>
+  <b>Inch Marlow, Barbados</b><br>
+  A surprising number of people haven't heard that the southern side of the island of Barbados is excellent for beginner surfers. However, Zed Layson, a famous surfer, has a school there at Surfer's Point, which is excellent for those who want to try the sport for the first time. As well as good teachers, there is always a photographer waiting to take a picture of you on your surfboard. In summer it rains a lot, but the water is warm so surfing is still possible.
+`;
+
 const questions = [
   {
     index: 1,
@@ -82,30 +95,78 @@ const questions = [
       </div>`,
     answer: `B`,
     },
-    // {
-    // index: 7,8,9,10,11,12,13,
-    // part: 2,
-    // left: `Nosara, Costa Rica
-// From the centre of the town of Nosara, you can easily walk to several good beaches for
-// beginner surfers. The sea is warm all year round and the weather is beautiful, so you'll be
-// surprised by how quiet the beaches always are. There are many excellent surf teachers
-// around the town, and their prices aren't high. The town's also famous for its wildlife park,
-// where you can see some amazing sea animals.
-// Agadir, Morocco
-// The area around Agadir in the south of Morocco is very popular with surfers. Beginners need
-// to go in autumn when the sea is safe and the water is nice and warm. Experienced surfers
-// will enjoy it more in winter when the waves are big and exciting. From the city you can drive
-// to many lovely beaches in less than 20 minutes. The area's well known for having a large
-// number of surf camps. These are comfortable and friendly and don't cost much. Book for at
-// least three days, to make the most of your time.
-// Inch Marlow, Barbados
-// A surprising number of people haven't heard that the southern side of the island of Barbados
-// is excellent for beginner surfers. However, Zed Layson, a famous surfer, has a school there
-// at Surfer's Point, which is excellent for those who want to try the sport for the first time. As
-// well as good teachers, there is always a photographer waiting to take a picture of you on
-// your surfboard. In summer it rains a lot, but the water is warm so surfing is still possible.`,
-    // }
-    // Thêm các câu hỏi khác vào đây theo cấu trúc tương tự
+    {
+      index: 7,
+      part: 2,
+      left: reading7_13,
+      right: `
+        <table class="multi-question-table" style="width:100%;margin-bottom:16px;">
+          <thead>
+            <tr>
+              <th></th>
+              <th style="text-align:center;">Nosara</th>
+              <th style="text-align:center;">Agadir</th>
+              <th style="text-align:center;">Inch Marlow</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="q7">
+              <td>7. Which place is only good for beginners at one time of year?</td>
+              <td style="text-align:center;"><label><input type="radio" name="q7" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q7" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q7" value="C"> C </label></td>
+            </tr>
+            <tr id="q8">
+              <td>8. Where can you learn from a well-known teacher?</td>
+              <td style="text-align:center;"><label><input type="radio" name="q8" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q8" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q8" value="C"> C </label></td>
+            </tr>
+            <tr id="q9">
+              <td>9. Which place has something to do when you're not surfing?</td>
+              <td style="text-align:center;"><label><input type="radio" name="q9" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q9" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q9" value="C"> C </label></td>
+            </tr>
+            <tr id="q10">
+              <td>10. Which place has wet weather at one time of the year?</td>
+              <td style="text-align:center;"><label><input type="radio" name="q10" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q10" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q10" value="C"> C </label></td>
+            </tr>
+            <tr id="q11">
+              <td>11. Where is it possible to stay without paying a lot?</td>
+              <td style="text-align:center;"><label><input type="radio" name="q11" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q11" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q11" value="C"> C </label></td>
+            </tr>
+            <tr id="q12">
+              <td>12. Which place is not well known as a good place to learn to surf?</td>
+              <td style="text-align:center;"><label><input type="radio" name="q12" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q12" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q12" value="C"> C </label></td>
+            </tr>
+            <tr id="q13">
+              <td>13. From which town can you get to the surfing beaches on foot?</td>
+              <td style="text-align:center;"><label><input type="radio" name="q13" value="A"> A </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q13" value="B"> B </label></td>
+              <td style="text-align:center;"><label><input type="radio" name="q13" value="C"> C </label></td>
+            </tr>
+          </tbody>
+        </table>
+      `,
+      // Bạn có thể thêm trường answers nếu muốn chấm tự động:
+      answers: {
+        7: "B",
+        8: "C",
+        9: "A",
+        10: "C",
+        11: "B",
+        12: "C",
+        13: "A"
+      }
+    },
+    
 ];
 
 // Export danh sách câu hỏi

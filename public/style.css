@@ -13,7 +13,7 @@
     flex-direction: column;
     /* justify-content: center; */
     /* align-items: center; */
-    height: 100vh; /* full chiều cao viewport */
+    height: 90vh; /* full chiều cao viewport */
     padding: 0 10px; /* thêm padding dưới cho navbar */
   }
 .placement-title {
@@ -346,6 +346,8 @@ h1 {
   flex-direction: column;
   height: 100%;
   padding: 20px;
+  padding-bottom: 60px; /* hoặc lớn hơn nếu navbar cao hơn */
+  box-sizing: border-box;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -504,4 +506,20 @@ h1 {
   margin-bottom: 2px;
   text-align: center;
   pointer-events: none;
+}
+
+.multi-question-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 16px;
+}
+.multi-question-table th, .multi-question-table td {
+  border: 1px solid #d0d7e2;
+  padding: 8px;
+}
+.multi-question-table th {
+  background: #f3f4f6;
+}
+.multi-question-table tr:hover {
+  background: #e6f0fa;
 }

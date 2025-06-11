@@ -213,6 +213,21 @@ $('.btn-number').on('click', function() {
   $('.panel-content.left[data-index="' + idx + '"]').show();
   $('.panel-content.right').hide();
   $('.panel-content.right[data-index="' + idx + '"]').show();
+  $(document).on('click', '.btn-number', function() {
+  var idx = $(this).data('index');
+  // Nếu là câu 7-13 (panel phải là bảng), cuộn đến đúng dòng
+  if (idx >= 7 && idx <= 13) {
+    var row = $('#q' + idx);
+    if (row.length) {
+      // Cuộn mượt đến dòng câu hỏi trong panel phải
+      $('.multi-question-table').animate({
+        scrollTop: row.position().top + $('.multi-question-table').scrollTop() - 40
+      }, 300);
+      // Hoặc dùng scrollIntoView nếu không dùng jQuery animate:
+      // row[0].scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
+});
   // Đổi tiêu đề theo Part (nếu muốn)
   let partNum = $(this).closest('.numberButtonsContainer').index() + 1;
   // ... (bạn có thể thêm code đổi tiêu đề ở đây nếu cần)
@@ -226,6 +241,13 @@ $(document).ready(function() {
   $('.panel-content.left[data-index="' + firstIdx + '"]').show();
   $('.panel-content.right').hide();
   $('.panel-content.right[data-index="' + firstIdx + '"]').show();
+  // Đặt chiều rộng mặc định cho hai panel là 50% khi load trang
+  var $container = $('#container');
+  var containerWidth = $container.width();
+  var dividerWidth = $('#divider').outerWidth();
+  var panelWidth = (containerWidth - dividerWidth) / 2;
+  $('#leftPane').css('width', panelWidth + 'px');
+  $('#rightPane').css('width', panelWidth + 'px');
 });
 
 // Resize dọc cho mobile
