@@ -379,12 +379,22 @@ h1 {
   margin: 0 auto 12px auto;
   overflow: hidden;
 }
+.email-panel {
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  background: #f9f9f9;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto 12px auto;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 8px #0001;
+}
 .email-header {
-  background: #eaeaea;
-  padding: 3px 8px;
-  display: flex;
-  align-items: center;
+  background: #e6e6e6;
+  padding: 6px 12px;
   border-bottom: 1px solid #ccc;
+  font-size: 14px;
+  display: flex;
   justify-content: space-between;
 }
 .email-icon {
@@ -413,7 +423,10 @@ h1 {
   margin-right: 10px;
 }
 .email-body {
-  padding: 10px 12px 10px 12px;
+  padding: 14px 16px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #222;
 }
 .email-body > div {
   margin-bottom: 4px;
@@ -522,4 +535,61 @@ h1 {
 }
 .multi-question-table tr:hover {
   background: #e6f0fa;
+}
+
+.sticky-note {
+  background: #fffbe7;
+  border: 1.5px solid #e0d9b6;
+  border-radius: 8px 8px 24px 8px;
+  box-shadow: 2px 4px 12px #0002;
+  width: 240px;
+  margin: 0 auto 12px auto;
+  padding: 12px 16px 18px 16px;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+.sticky-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+.sticky-room {
+  font-weight: normal;
+  font-size: 13px;
+  color: #555;
+}
+.sticky-body {
+  font-size: 15px;
+  margin-top: 10px;
+  color: #222;
+}
+
+.note-paper {
+  background: #fffde9;
+  border: 1.5px solid #e0d9b6;
+  border-radius: 12px 18px 24px 12px;
+  box-shadow: 2px 4px 12px #0002;
+  width: 260px;
+  margin: 0 auto 12px auto;
+  padding: 18px 20px 18px 20px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  position: relative;
+  min-height: 140px;
+}
+.note-pin {
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(circle at 8px 8px, #fff 60%, #bbb 100%);
+  border: 2px solid #bbb;
+  border-radius: 50%;
+  position: absolute;
+  top: -12px;
+  left: 18px;
+  z-index: 2;
+  box-shadow: 1px 2px 6px #0002;
+}
+.note-content {
+  font-size: 15px;
+  color: #222;
+  white-space: pre-line;
 }

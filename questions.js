@@ -11,89 +11,22 @@ const reading7_13 = `
   A surprising number of people haven't heard that the southern side of the island of Barbados is excellent for beginner surfers. However, Zed Layson, a famous surfer, has a school there at Surfer's Point, which is excellent for those who want to try the sport for the first time. As well as good teachers, there is always a photographer waiting to take a picture of you on your surfboard. In summer it rains a lot, but the water is warm so surfing is still possible.
 `;
 
-const reading7_13_table = `
-  <table class="multi-question-table" style="width:100%;margin-bottom:16px;">
-    <thead>
-      <tr>
-        <th></th>
-        <th style="text-align:center;">Nosara</th>
-        <th style="text-align:center;">Agadir</th>
-        <th style="text-align:center;">Inch Marlow</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr id="q7">
-        <td>
-          7. Which place is only good for beginners at one time of year?
-          <button class="flag-btn" data-flag="7" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
-        </td>
-        <td style="text-align:center;"><label><input type="radio" name="q7" value="A"> A </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q7" value="B"> B </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q7" value="C"> C </label></td>
-      </tr>
-      <tr id="q8">
-        <td>
-          8. Where can you learn from a well-known teacher?
-          <button class="flag-btn" data-flag="8" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
-        </td>
-        <td style="text-align:center;"><label><input type="radio" name="q8" value="A"> A </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q8" value="B"> B </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q8" value="C"> C </label></td>
-      </tr>
-      <tr id="q9">
-        <td>
-          9. Which place has something to do when you're not surfing?
-          <button class="flag-btn" data-flag="9" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
-        </td>
-        <td style="text-align:center;"><label><input type="radio" name="q9" value="A"> A </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q9" value="B"> B </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q9" value="C"> C </label></td>
-      </tr>
-      <tr id="q10">
-        <td>
-          10. Which place has wet weather at one time of the year?
-          <button class="flag-btn" data-flag="10" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
-        </td>
-        <td style="text-align:center;"><label><input type="radio" name="q10" value="A"> A </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q10" value="B"> B </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q10" value="C"> C </label></td>
-      </tr>
-      <tr id="q11">
-        <td>
-          11. Where is it possible to stay without paying a lot?
-          <button class="flag-btn" data-flag="11" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
-        </td>
-        <td style="text-align:center;"><label><input type="radio" name="q11" value="A"> A </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q11" value="B"> B </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q11" value="C"> C </label></td>
-      </tr>
-      <tr id="q12">
-        <td>
-          12. Which place is not well known as a good place to learn to surf?
-          <button class="flag-btn" data-flag="12" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
-        </td>
-        <td style="text-align:center;"><label><input type="radio" name="q12" value="A"> A </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q12" value="B"> B </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q12" value="C"> C </label></td>
-      </tr>
-      <tr id="q13">
-        <td>
-          13. From which town can you get to the surfing beaches on foot?
-          <button class="flag-btn" data-flag="13" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span></button>
-        </td>
-        <td style="text-align:center;"><label><input type="radio" name="q13" value="A"> A </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q13" value="B"> B </label></td>
-        <td style="text-align:center;"><label><input type="radio" name="q13" value="C"> C </label></td>
-      </tr>
-    </tbody>
-  </table>
-`;
+
 
 const questions = [
   {
     index: 1,
     part: 1,
-    left: `<img src="./images/ket1.png" alt="cau hoi so 1">`,
+    left: `<div class="email-panel">
+    <div class="email-header">
+      <span><b>To:</b> Lucy</span>
+      <span><b>From:</b> Emma</span>
+    </div>
+    <div class="email-body">
+      Can you come sailing this weekend? My dad's rented a small boat for two days.<br>
+      It doesn't matter that it's your first time.
+    </div>
+  </div>`,
     right: `
       <strong>1</strong> <br /> 
       <button class="flag-btn" data-flag="1" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
@@ -108,7 +41,12 @@ const questions = [
   {
     index: 2,
     part: 1,
-    left: `<img src="./images/ket2.png" alt="cau hoi so 2">`,
+    left: `<div class="sticky-note">
+      <div class="sticky-title">Friday singing lessons<br><span class="sticky-room">(Room 3B)</span></div>
+      <div class="sticky-body">
+        Please tell Mrs Topson by Thursday afternoon if interested.
+      </div>
+    </div>`,
     right: `
       <strong>2</strong> <br /> <button class="flag-btn" data-flag="2" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
       <div class="question-options">
@@ -121,7 +59,18 @@ const questions = [
   {
     index: 3,
     part: 1,
-    left: `<img src="./images/ket3.png" alt="cau hoi so 3">`,
+    left: `<div class="phone-mockup">
+      <div class="dynamic-island"></div>
+      <div class="phone-screen">
+        <div style="font-weight:bold; margin-bottom:6px;">Hi Jamie,</div>
+        <div>
+          You left your maths book at my house yesterday.<br>
+          I'll bring it to school tomorrow and give it to you.
+        </div>
+        <div style="margin-top:10px; text-align:right;">Max</div>
+      </div>
+      <div class="phone-footer"></div>
+    </div>`,
     right: `
       <strong>3</strong> <br /> <button class="flag-btn" data-flag="3" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
       <div class="question-options">
@@ -135,7 +84,15 @@ const questions = [
   {
     index: 4,
     part: 1,
-    left: `<img src="./images/ket4.png" alt="cau hoi so 4">`,
+    left: `<div class="email-panel">
+      <div class="email-header">
+        <span><b>To:</b> Students</span>
+        <span><b>From:</b> Mr Thomas</span>
+      </div>
+      <div class="email-body">
+        Anyone interested in becoming a member of an after-school sports club this term must complete an online form first.
+      </div>
+    </div>`,
     right: `
       <strong>4</strong> <br /> <button class="flag-btn" data-flag="4" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
       <div class="question-options">
@@ -148,7 +105,15 @@ const questions = [
     {
     index: 5,
     part: 1,    
-    left: `<img src="./images/ket5.png" alt="cau hoi so 5">`,
+    left: `<div class="note-paper">
+      <div class="note-pin"></div>
+      <div class="note-content">
+        Jack,<br><br>
+        I'm working late tonight - back by 7. Turn the heating on if you're cold.<br>
+        You'll find some pasta in the fridge.<br><br>
+        Mum
+      </div>
+    </div>`,
     right: `
       <strong>5</strong> <br /> <button class="flag-btn" data-flag="5" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
       <h4>Jack's mother says</h4>
@@ -162,7 +127,16 @@ const questions = [
     {
     index: 6,
     part: 1,
-    left: `<img src="./images/ket6.png" alt="cau hoi so 6">`,
+    left: `<div class="email-panel">
+      <div class="email-header">
+        <span><b>To:</b> All students</span>
+        <span><b>Subject:</b> School magazine</span>
+      </div>
+      <div class="email-body">
+        We need some articles for the school magazine.<br>
+        Email me with your ideas by Tuesday. I'll need the finished articles in two weeks.
+      </div>
+    </div>`,
     right: `
       <strong>6</strong> <br /> <button class="flag-btn" data-flag="6" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
       <h4>The school magazine</h4>
@@ -177,7 +151,7 @@ const questions = [
       index: 7,
       part: 2,
       left: reading7_13,
-      right: reading7_13_table,
+      right: '', // Không cần bảng ở đây nữa
       answers: {
         7: "B",
         8: "C",
@@ -187,48 +161,48 @@ const questions = [
         12: "C",
         13: "A"
       },
-      answer: "B" // đáp án cho câu 7
+      answer: "B"
     },
     {
       index: 8,
       part: 2,
       left: reading7_13,
-      right: reading7_13_table,
+      right: '',
       answer: "C"
     },
     {
       index: 9,
       part: 2,
       left: reading7_13,
-      right: reading7_13_table,
+      right: '',
       answer: "A"
     },
     {
       index: 10,
       part: 2,
       left: reading7_13,
-      right: reading7_13_table,
+      right: '',
       answer: "C"
     },
     {
       index: 11,
       part: 2,
       left: reading7_13,
-      right: reading7_13_table,
+      right: '',
       answer: "B"
     },
     {
       index: 12,
       part: 2,
       left: reading7_13,
-      right: reading7_13_table,
+      right: '',
       answer: "C"
     },
     {
       index: 13,
       part: 2,
       left: reading7_13,
-      right: reading7_13_table,
+      right: '',
       answer: "A"
     },
 ];
