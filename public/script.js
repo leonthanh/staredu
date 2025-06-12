@@ -25,7 +25,20 @@ $('[id^=btnPart]').on('click', function () {
       $('.panel-content.left').hide();
       $('.panel-content.left[data-index="' + idx + '"]').show();
       $('.panel-content.right').hide();
-      $('.panel-content.right[data-index="' + idx + '"]').show();
+      // Sửa đoạn này: Nếu là Part 2 (index 7-13), luôn show panel-part2
+      if (idx >= 7 && idx <= 13) {
+        $('#panel-part2').show();
+        setTimeout(function() {
+          restoreMultiQuestionAnswers();
+          // Cuộn đến đúng dòng
+          var row = $('#q' + idx);
+          if (row.length) {
+            row[0].scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 0);
+      } else {
+        $('.panel-content.right[data-index="' + idx + '"]').show();
+      }
     }
   }
 });
