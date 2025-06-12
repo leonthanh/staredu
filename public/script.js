@@ -235,6 +235,23 @@ $('.btn-number').on('click', function() {
         row[0].scrollIntoView({ behavior: "smooth", block: "center" });
       }
     }, 0);
+  } else if (idx >= 14 && idx <= 18) {
+    $('.panel-content.right').hide();
+    $('#panel-part3').show();
+    setTimeout(function() {
+      // Khôi phục đáp án cho 14-18
+      for (let i = 14; i <= 18; i++) {
+        const ans = userAnswers[i];
+        if (ans) {
+          $(`.multi-question-table input[name="q${i}"][value="${ans}"]`).prop('checked', true);
+        }
+      }
+      // Cuộn đến đúng dòng
+      var row = $('#q' + idx);
+      if (row.length) {
+        row[0].scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 0);
   } else {
     $('.panel-content.right').hide();
     $('.panel-content.right[data-index="' + idx + '"]').show();
@@ -254,6 +271,10 @@ $(document).ready(function() {
     $('.panel-content.right').hide();
     $('.panel-content.right[data-index="' + firstIdx + '"]').show();
   }
+  let saved = JSON.parse(localStorage.getItem('answers') || '{}');
+  Object.keys(saved).forEach(function(name) {
+    $('input[type=radio][name="' + name + '"][value="' + saved[name] + '"]').prop('checked', true);
+  });
 });
 
 // Resize dọc cho mobile
@@ -301,6 +322,7 @@ $(window).on('resize', function() {
   }
 });
 // Xử lý đánh dấu cờ cho từng câu
+
 $(document).on('click', '.flag-btn', function() {
   const idx = $(this).data('flag');
   $(this).toggleClass('active');
@@ -336,6 +358,7 @@ $(document).on('change', '.multi-question-table input[type="radio"]', function()
   localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
 });
 
+
 // Khôi phục đáp án đã chọn nếu có
 let savedAnswers = localStorage.getItem('userAnswers');
 if (savedAnswers) {
@@ -363,6 +386,16 @@ for (let idx in flagged) {
 // Khôi phục đáp án đã chọn cho bảng 7-13
 function restoreMultiQuestionAnswers() {
   for (let i = 7; i <= 13; i++) {
+    const ans = userAnswers[i];
+    if (ans) {
+      $(`.multi-question-table input[name="q${i}"][value="${ans}"]`).prop('checked', true);
+    }
+  }
+}
+
+// Khôi phục đáp án đã chọn cho bảng 14-18
+function restoreMultiQuestionAnswersPart3() {
+  for (let i = 14; i <= 18; i++) {
     const ans = userAnswers[i];
     if (ans) {
       $(`.multi-question-table input[name="q${i}"][value="${ans}"]`).prop('checked', true);
@@ -427,6 +460,9 @@ $(document).ready(function () {
 
   // Khôi phục đáp án đã chọn cho bảng 7-13
   restoreMultiQuestionAnswers();
+
+  // Khôi phục đáp án đã chọn cho bảng 14-18
+  restoreMultiQuestionAnswersPart3();
 });
 
 let examTimerInterval = null;
@@ -461,3 +497,44 @@ function updateTimerDisplay(seconds) {
   let s = seconds % 60;
   $('#exam-timer').text((m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s);
 };
+
+$('#btnPart2').on('click', function () {
+  $('.question h3').text('Questions 7-13');
+});
+
+// Nếu muốn tự động đổi lại về "Question 1-6" khi click Part 1:
+$('#btnPart1').on('click', function () {
+  $('.question h3').text('Questions 1-6');
+});
+
+$('#btnPart3').on('click', function () {
+  $('.panel-content.left').hide();
+  $('.panel-content.left[data-index="14"]').show();
+  $('.panel-content.right').hide();
+  $('#panel-part3').show();
+
+  $('.question h3').text('Questions 14-18');
+  $('.numberButtonsContainer').removeClass('show');
+  $('#numberButtonsContainer3').addClass('show');
+  $('[id^=btnPart]').removeClass('active');
+  $(this).addClass('active');
+  $('.btn-number').removeClass('active');
+  $('#numberButtonsContainer3 .btn-number[data-index="14"]').addClass('active');
+  setTimeout(function() {
+    var row = $('#q14');
+    if (row.length) {
+      row[0].scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, 0);
+});
+
+// Sự kiện click các nút số 14-18
+$('#numberButtonsContainer3 .btn-number').on('click', function () {
+  $('.btn-number').removeClass('active');
+  $(this).addClass('active');
+  var idx = $(this).data('index');
+  var row = $('#q' + idx);
+  if (row.length) {
+    row[0].scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+});

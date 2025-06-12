@@ -10,8 +10,68 @@ const reading7_13 = `
   <b>Inch Marlow, Barbados</b><br>
   A surprising number of people haven't heard that the southern side of the island of Barbados is excellent for beginner surfers. However, Zed Layson, a famous surfer, has a school there at Surfer's Point, which is excellent for those who want to try the sport for the first time. As well as good teachers, there is always a photographer waiting to take a picture of you on your surfboard. In summer it rains a lot, but the water is warm so surfing is still possible.
 `;
-
-
+const readingPart3 = `
+  <div class="reading-panel">
+    <div class="reading-box">
+      <div class="reading-title"><b>My hobby</b></div>
+      <div class="reading-subtitle"><i>Fifteen-year-old Zoe Cabello talks about snowboarding</i></div>
+      <div class="reading-body" style="margin-top:8px;">
+        I first tried snowboarding when I was seven, on a family holiday. My older brother was already a really good snowboarder, and at that age, I always wanted to do everything he did. My dad paid for a lesson, but I didn’t enjoy it at all, and decided never to do it again.<br><br>
+        After that, I started doing gymnastics, and I got really good at it. Then, when I was nine, one of my friends had a snowboarding party at an indoor snow centre for her birthday. I wanted to say no because I was scared of hurting myself. However, she really wanted me to go, so I decided to be brave, and said yes.<br><br>
+        And actually, this time, I thought snowboarding was amazing! Because of all the gymnastics, I was strong and fit and it wasn’t difficult for me. In just a couple of hours I was able to stay on my feet from the top of the slope to the bottom.<br><br>
+        When I was 11, we moved to Italy for nine months because of my father's job. We lived in the north of the country, near the mountains, and I was able to go snowboarding a lot. When we returned home, my friends couldn't believe how good I was.<br><br>
+        These days all our family holidays are spent snowboarding. I love everything about it - the fresh air, the views, even the clothes. But more than anything, I love the fact that there's always something new to learn. That's what keeps it interesting for me.
+      </div>
+    </div>
+  </div> `;
+const questionsPart3 = `
+  <div class="multi-question-table">
+    <div class="question-block" id="q14">
+      <div class="question-row"><b>14</b> Why did Zoe want to try snowboarding when she was seven?
+      <button class="flag-btn" data-flag="14" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+      </div>
+      
+      <div class="question-options">
+        <label><input type="radio" name="q14" value="A"> A. to find out if she liked it</label><br>
+        <label><input type="radio" name="q14" value="B"> B. to be like her brother</label><br>
+        <label><input type="radio" name="q14" value="C"> C. to make her dad happy</label>
+      </div>
+    </div>
+    <div class="question-block" id="q15">
+      <div class="question-row"><b>15</b> When Zoe was invited to her friend's birthday party she felt
+      <button class="flag-btn" data-flag="15" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button></div>
+      <div class="question-options">
+        <label><input type="radio" name="q15" value="A"> A. excited.</label><br>
+        <label><input type="radio" name="q15" value="B"> B. surprised.</label><br>
+        <label><input type="radio" name="q15" value="C"> C. worried.</label>
+      </div>
+    </div>
+    <div class="question-block" id="q16">
+      <div class="question-row"><b>16</b> What is Zoe explaining in the third paragraph?<button class="flag-btn" data-flag="16" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button></div>
+      <div class="question-options">
+        <label><input type="radio" name="q16" value="A"> A. how gymnastics helped her learn to snowboard</label><br>
+        <label><input type="radio" name="q16" value="B"> B. how important it is to have more than one hobby</label><br>
+        <label><input type="radio" name="q16" value="C"> C. how long it takes for most people to learn to snowboard</label>
+      </div>
+    </div>
+    <div class="question-block" id="q17">
+      <div class="question-row"><b>17</b> What does Zoe say about living in Italy?<button class="flag-btn" data-flag="17" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button></div>
+      <div class="question-options">
+        <label><input type="radio" name="q17" value="A"> A. Her snowboarding improved a lot.</label><br>
+        <label><input type="radio" name="q17" value="B"> B. She missed snowboarding with her friends.</label><br>
+        <label><input type="radio" name="q17" value="C"> C. She met a lot of excellent snowboarders there.</label>
+      </div>
+    </div>
+    <div class="question-block" id="q18">
+      <div class="question-row"><b>18</b> What does Zoe say about snowboarding in the final paragraph?<button class="flag-btn" data-flag="18" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button></div>
+      <div class="question-options">
+        <label><input type="radio" name="q18" value="A"> A. She would like to go without her family next time.</label><br>
+        <label><input type="radio" name="q18" value="B"> B. She's sorry she can't go more often.</label><br>
+        <label><input type="radio" name="q18" value="C"> C. She never gets bored of going.</label>
+      </div>
+    </div>
+  </div>
+`;
 
 const questions = [
   {
@@ -205,6 +265,43 @@ const questions = [
       right: '',
       answer: "A"
     },
+  {
+    index: 14,
+    part: 3,
+    left: readingPart3,
+    right: questionsPart3,
+    answer: {
+      14: "B",      
+    }
+  },
+  {
+    index: 15,
+    part: 3,
+    left: readingPart3,
+    right: questionsPart3, // panel phải không dùng, chỉ để sinh nút
+    answer: "C"
+  },
+  {
+    index: 16,
+    part: 3,
+    left: readingPart3,
+    right: questionsPart3,
+    answer: "A"
+  },
+  {
+    index: 17,
+    part: 3,
+    left: readingPart3,
+    right: questionsPart3,
+    answer: "A"
+  },
+  {
+    index: 18,
+    part: 3,
+    left: readingPart3,
+    right: questionsPart3,
+    answer: "C"
+  },
 ];
 
 // Export danh sách câu hỏi
