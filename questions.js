@@ -72,7 +72,65 @@ const questionsPart3 = `
     </div>
   </div>
 `;
+const answersPart4 = `
+  <div class="multi-question-table">
+    <div class="question-block" id="q19">
+      <b>19</b>
+      <label><input type="radio" name="q19" value="A"> A. planned</label>
+      <label><input type="radio" name="q19" value="B"> B. decided</label>
+      <label><input type="radio" name="q19" value="C"> C. preferred</label>
+      <button class="flag-btn" data-flag="19" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+    </div>
+    <div class="question-block" id="q20">
+      <b>20</b>
+      <label><input type="radio" name="q20" value="A"> A. paid</label>
+      <label><input type="radio" name="q20" value="B"> B. bought</label>
+      <label><input type="radio" name="q20" value="C"> C. spent</label>
+      <button class="flag-btn" data-flag="20" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+    </div>
+    <div class="question-block" id="q21">
+      <b>21</b>
+      <label><input type="radio" name="q21" value="A"> A. filled</label>
+      <label><input type="radio" name="q21" value="B"> B. carried</label>
+      <label><input type="radio" name="q21" value="C"> C. collected</label>
+      <button class="flag-btn" data-flag="21" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+    </div>
+    <div class="question-block" id="q22">
+      <b>22</b>
+      <label><input type="radio" name="q22" value="A"> A. large</label>
+      <label><input type="radio" name="q22" value="B"> B. far</label>
+      <label><input type="radio" name="q22" value="C"> C. long</label>
+      <button class="flag-btn" data-flag="22" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+    </div>
+    <div class="question-block" id="q23">
+      <b>23</b>
+      <label><input type="radio" name="q23" value="A"> A. plays</label>
+      <label><input type="radio" name="q23" value="B"> B. puts</label>
+      <label><input type="radio" name="q23" value="C"> C. sends</label>
+      <button class="flag-btn" data-flag="23" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+    </div>
+    <div class="question-block" id="q24">
+      <b>24</b>
+      <label><input type="radio" name="q24" value="A"> A. borrows</label>
+      <label><input type="radio" name="q24" value="B"> B. lends</label>
+      <label><input type="radio" name="q24" value="C"> C. belongs</label>
+      <button class="flag-btn" data-flag="24" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+    </div>
+  </div>
+`;
+const readingPart4 = `
+  <div class="reading-panel">
+    <div class="reading-box">
+      <div class="reading-title"><b>The library on wheels</b></div>
+      <div class="reading-body" style="margin-top:8px;">
+        Antonio La Cava was a teacher in Italy for 42 years. When his career finished, he (19) ............... he didn’t want to stop working with children. So, in 2003, he (20) ............... an old three-wheeled motorbike and made it into a library on wheels. He built a large box, and put it onto the back of the motorbike. Then he (21) ............... it with more than 700 books written for children of all ages.<br><br>
+        Every week, Antonio visits eight villages around Basilicata in southern Italy. The whole trip is more than 500 kilometres (22) ............... . As Antonio enters the villages he (23) ............... loud music, so the children know he’s there. Antonio (24) ............... children hundreds of books every week, and passes his love of books on to them.
+      </div>
+    </div>
+  </div>
+`;
 
+// Questions for the KET test, part 1
 const questions = [
   {
     index: 1,
@@ -271,7 +329,11 @@ const questions = [
     left: readingPart3,
     right: questionsPart3,
     answer: {
-      14: "B",      
+      14: "B",
+      15: "C",
+      16: "A",
+      17: "A",
+      18: "C"      
     }
   },
   {
@@ -302,7 +364,50 @@ const questions = [
     right: questionsPart3,
     answer: "C"
   },
+    {
+    index: 19,
+    part: 4,
+    left: readingPart4,
+    right: answersPart4,
+    answer: "B"
+  },
+  {
+    index: 20,
+    part: 4,
+    left: readingPart4,
+    right: answersPart4,
+    answer: "B"
+  },
+  {
+    index: 21,
+    part: 4,
+    left: readingPart4,
+    right: answersPart4,
+    answer: "A"
+  },
+  {
+    index: 22,
+    part: 4,
+    left: readingPart4,
+    right: answersPart4,
+    answer: "C"
+  },
+  {
+    index: 23,
+    part: 4,
+    left: readingPart4,
+    right: answersPart4,
+    answer: "A"
+  },
+  {
+    index: 24,
+    part: 4,
+    left: readingPart4,
+    right: answersPart4,
+    answer: "B"
+  },
 ];
+
 
 // Export danh sách câu hỏi
 module.exports = questions;

@@ -114,7 +114,42 @@
       </div>
       <!-- Panel phải duy nhất cho part 3 (câu 14–18) -->
       <div class="panel-content right" id="panel-part3" style="display:none">
-        <%- questions.find(q => q.index === 14).right %>
+        <div class="multi-question-table">
+          <% let q14 = questions.find(q => q.index === 14); %>
+          <% if (q14) { 
+            // Chèn từng block câu hỏi, thêm id cho từng câu hỏi để cuộn tới
+            let rightHtml = q14.right;
+            // Thêm id cho từng question-block
+            rightHtml = rightHtml
+              .replace('class="question-block"', 'class="question-block" id="q14"')
+              .replace('class="question-block"', 'class="question-block" id="q15"')
+              .replace('class="question-block"', 'class="question-block" id="q16"')
+              .replace('class="question-block"', 'class="question-block" id="q17"')
+              .replace('class="question-block"', 'class="question-block" id="q18"');
+          %>
+            <%- rightHtml %>
+          <% } %>
+        </div>
+      </div>
+      <!-- Panel phải duy nhất cho part 4 (câu 19-23) -->
+      <div class="panel-content right" id="panel-part4" style="display:none">
+        <div class="multi-question-table">
+          <% let q19 = questions.find(q => q.index === 19); %>
+          <% if (q19) {
+            // Chèn từng block câu hỏi, thêm id cho từng câu hỏi để cuộn tới
+            let rightHtml = q19.right;
+            // Thêm id cho từng question-block
+            rightHtml = rightHtml
+              .replace('class="question-block"', 'class="question-block" id="q19"')
+              .replace('class="question-block"', 'class="question-block" id="q20"')
+              .replace('class="question-block"', 'class="question-block" id="q21"')
+              .replace('class="question-block"', 'class="question-block" id="q22"')
+              .replace('class="question-block"', 'class="question-block" id="q23"');
+          %>
+            <%- rightHtml %>
+          <% } %>
+        </div>
+        
       </div>
     </div>
   </div>

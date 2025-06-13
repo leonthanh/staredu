@@ -59,6 +59,7 @@ $('#btnPrev').on('click', function () {
   }
 });
 
+// Nút Next: chuyển đến nút kế tiếp và hiện panel tương ứng
 $('#btnNext').on('click', function () {
   let $allBtns = $('.btn-number');
   let $current = $('.btn-number.active');
@@ -129,6 +130,7 @@ function finishExam() {
   doc.text('Time: ' + new Date().toLocaleString(), 10, 40);
   doc.text('Score: ' + score + '/' + questions.length, 10, 50);
 
+  // Hiển thị câu hỏi và đáp án
   let y = 60;
   questions.forEach(q => {
     doc.text(
@@ -164,9 +166,13 @@ function finishExam() {
   localStorage.removeItem('userPhone');
   localStorage.removeItem('userAnswers');
   localStorage.removeItem('flaggedQuestions');
+  userAnswers = {}; // <--- Thêm dòng này để reset biến toàn cục
   setTimeout(function() {
     window.location.href = '/login';
-  }, 1500); // Đợi 1.5s cho user xem popup điểm
+    setTimeout(function() {
+      window.location.reload();
+    }, 200);
+  }, 2500); // Đợi 1.5s cho user xem popup điểm
 }
 
 let isResizing = false;
@@ -180,7 +186,7 @@ $('#divider').on('mousedown touchstart', function(e) {
   $('body').addClass('resizing');
   e.preventDefault();
 });
-
+// Xử lý sự kiện di chuyển chuột hoặc chạm để resize
 $(document).on('mousemove touchmove', function(e) {
   if (!isResizing) return;
   let x = e.pageX || (e.originalEvent.touches && e.originalEvent.touches[0].pageX);
@@ -194,18 +200,18 @@ $(document).on('mousemove touchmove', function(e) {
   $('#leftPane').css('width', newLeftWidth + 'px');
   $('#rightPane').css('width', (containerWidth - dividerWidth - newLeftWidth) + 'px');
 });
-
+// Xử lý sự kiện khi kết thúc resize
 $(document).on('mouseup touchend', function() {
   if (isResizing) {
     isResizing = false;
     $('body').removeClass('resizing');
   }
 });
-
+// Xử lý sự kiện resize cửa sổ
 $(window).on('resize', function() {
   $('#leftPane, #rightPane').css('width', '');
 });
-
+// Thêm hiệu ứng hover cho nút Part 1
 $('#btn1').hover(
   function() {
     $('#panel1-highlight').addClass('panel-highlight');
@@ -286,6 +292,7 @@ let isResizingVertical = false;
 let startY = 0;
 let startTopHeight = 0;
 
+// Xử lý sự kiện resize dọc cho mobile
 $('.divider').on('mousedown touchstart', function(e) {
   if (!isMobile()) return;
   isResizingVertical = true;
@@ -294,7 +301,7 @@ $('.divider').on('mousedown touchstart', function(e) {
   $('body').addClass('resizing');
   e.preventDefault();
 });
-
+// Xử lý sự kiện di chuyển chuột hoặc chạm để resize dọc
 $(document).on('mousemove touchmove', function(e) {
   if (!isResizingVertical) return;
   let y = e.pageY || (e.originalEvent.touches && e.originalEvent.touches[0].pageY);
@@ -308,21 +315,20 @@ $(document).on('mousemove touchmove', function(e) {
   $('#leftPane').css('height', newTopHeight + 'px');
   $('#rightPane').css('height', (containerHeight - dividerHeight - newTopHeight) + 'px');
 });
-
+// Xử lý sự kiện khi kết thúc resize dọc
 $(document).on('mouseup touchend', function() {
   if (isResizingVertical) {
     isResizingVertical = false;
     $('body').removeClass('resizing');
   }
 });
-
+// Xử lý sự kiện resize cửa sổ
 $(window).on('resize', function() {
   if (!isMobile()) {
     $('#leftPane, #rightPane').css('height', '');
   }
 });
 // Xử lý đánh dấu cờ cho từng câu
-
 $(document).on('click', '.flag-btn', function() {
   const idx = $(this).data('flag');
   $(this).toggleClass('active');
@@ -344,6 +350,7 @@ $(document).on('click', '.flag-btn', function() {
   localStorage.setItem('flaggedQuestions', JSON.stringify(flagged));
 });
 // Xử lý sự kiện chọn đáp án
+
 // Lưu đáp án người dùng vào biến userAnswers
 $(document).on('change', '.question-options input[type="radio"]', function() {
   const idx = $(this).attr('name').replace('q', '');
@@ -361,11 +368,20 @@ $(document).on('change', '.multi-question-table input[type="radio"]', function()
 
 // Khôi phục đáp án đã chọn nếu có
 let savedAnswers = localStorage.getItem('userAnswers');
-if (savedAnswers) {
+if (
+  savedAnswers &&
+  localStorage.getItem('examStartTime') // chỉ khôi phục nếu đang làm bài dở
+) {
   userAnswers = JSON.parse(savedAnswers);
   for (let idx in userAnswers) {
     $(`.question-options input[name="q${idx}"][value="${userAnswers[idx]}"]`).prop('checked', true);
   }
+} else {
+  // Nếu không phải đang làm bài dở, xóa sạch đáp án cũ
+  userAnswers = {};
+  localStorage.removeItem('userAnswers');
+  $('.question-options input[type="radio"]').prop('checked', false);
+  $('.multi-question-table input[type="radio"]').prop('checked', false);
 }
 
 // Khôi phục trạng thái cờ khi load lại trang
@@ -383,9 +399,9 @@ for (let idx in flagged) {
   }
 }
 
-// Khôi phục đáp án đã chọn cho bảng 7-13
+// Khôi phục đáp án đã chọn cho bảng 7-18
 function restoreMultiQuestionAnswers() {
-  for (let i = 7; i <= 13; i++) {
+  for (let i = 7; i <= 24; i++) {
     const ans = userAnswers[i];
     if (ans) {
       $(`.multi-question-table input[name="q${i}"][value="${ans}"]`).prop('checked', true);
@@ -393,9 +409,9 @@ function restoreMultiQuestionAnswers() {
   }
 }
 
-// Khôi phục đáp án đã chọn cho bảng 14-18
-function restoreMultiQuestionAnswersPart3() {
-  for (let i = 14; i <= 18; i++) {
+// Khôi phục đáp án đã chọn cho bảng 19-24
+function restoreMultiQuestionAnswersPart4() {
+  for (let i = 19; i <= 24; i++) {
     const ans = userAnswers[i];
     if (ans) {
       $(`.multi-question-table input[name="q${i}"][value="${ans}"]`).prop('checked', true);
@@ -408,7 +424,7 @@ $('.btn-number').on('click', function() {
   var idx = $(this).data('index');
   // ...code chuyển panel...
   setTimeout(function() {
-    if (idx >= 7 && idx <= 13) {
+    if (idx >= 7 && idx <= 24) {
       restoreMultiQuestionAnswers();
     }
   }, 0);
@@ -458,27 +474,25 @@ $(document).ready(function () {
     }
   }
 
-  // Khôi phục đáp án đã chọn cho bảng 7-13
-  restoreMultiQuestionAnswers();
-
-  // Khôi phục đáp án đã chọn cho bảng 14-18
-  restoreMultiQuestionAnswersPart3();
+  // Khôi phục đáp án đã chọn cho bảng 19-24
+  restoreMultiQuestionAnswersPart4();
 });
-
+// Đồng hồ làm bài
+// Kiểm tra nếu đã có thời gian bắt đầu thì chạy lại đồng hồ
 let examTimerInterval = null;
 function startExamTimer() {
   // Ghi lại thời gian bắt đầu
   localStorage.setItem('examStartTime', Date.now().toString());
   runExamTimer();
 }
-
+// Hàm chạy đồng hồ làm bài
 function runExamTimer() {
   let startTime = parseInt(localStorage.getItem('examStartTime'), 10);
   let duration = 60 * 60; // 60 phút (giây)
   let elapsed = Math.floor((Date.now() - startTime) / 1000);
   let remain = duration - elapsed;
   if (remain < 0) remain = 0;
-
+// Hiển thị đồng hồ
   $('#exam-timer').show();
   updateTimerDisplay(remain);
   if (examTimerInterval) clearInterval(examTimerInterval);
@@ -492,12 +506,13 @@ function runExamTimer() {
     }
   }, 1000);
 }
+// Hàm cập nhật hiển thị đồng hồ
 function updateTimerDisplay(seconds) {
   let m = Math.floor(seconds / 60);
   let s = seconds % 60;
   $('#exam-timer').text((m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s);
 };
-
+// Sự kiện click nút Part 2: hiện panel 7-13 và đổi tiêu đề
 $('#btnPart2').on('click', function () {
   $('.question h3').text('Questions 7-13');
 });
@@ -506,13 +521,12 @@ $('#btnPart2').on('click', function () {
 $('#btnPart1').on('click', function () {
   $('.question h3').text('Questions 1-6');
 });
-
+// Sự kiện click nút Part 3: hiện panel 14-18 và đổi tiêu đề
 $('#btnPart3').on('click', function () {
   $('.panel-content.left').hide();
   $('.panel-content.left[data-index="14"]').show();
   $('.panel-content.right').hide();
   $('#panel-part3').show();
-
   $('.question h3').text('Questions 14-18');
   $('.numberButtonsContainer').removeClass('show');
   $('#numberButtonsContainer3').addClass('show');
@@ -527,12 +541,50 @@ $('#btnPart3').on('click', function () {
     }
   }, 0);
 });
-
-// Sự kiện click các nút số 14-18
+// Chỉ cần click vào nút số sẽ hiện panel tương ứng
 $('#numberButtonsContainer3 .btn-number').on('click', function () {
   $('.btn-number').removeClass('active');
   $(this).addClass('active');
   var idx = $(this).data('index');
+  var row = $('#q' + idx);
+  if (row.length) {
+    row[0].scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+});
+// Sự kiện click nút Part 4: hiện panel 19-24 và đổi tiêu đề
+$('#btnPart4').on('click', function () {
+  $('.panel-content.right').hide();
+  $('#panel-part4').show();
+
+  $('.question h3').text('Questions 19-24');
+  $('.numberButtonsContainer').removeClass('show');
+  $('#numberButtonsContainer4').addClass('show');
+  $('[id^=btnPart]').removeClass('active');
+  $(this).addClass('active');
+  $('.btn-number').removeClass('active');
+  $('#numberButtonsContainer4 .btn-number[data-index="19"]').addClass('active');
+
+  // Khôi phục đáp án đã chọn cho 19-24
+  restoreMultiQuestionAnswersPart4();
+
+  setTimeout(function() {
+    var row = $('#q19');
+    if (row.length) {
+      row[0].scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, 0);
+});
+// Sự kiện click các nút số 19-24
+$('#numberButtonsContainer4 .btn-number').on('click', function () {
+  $('.btn-number').removeClass('active');
+  $(this).addClass('active');
+  var idx = $(this).data('index');
+  $('.panel-content.right').hide();
+  $('#panel-part4').show();
+
+  // Khôi phục đáp án đã chọn cho 19-24
+  restoreMultiQuestionAnswersPart4();
+
   var row = $('#q' + idx);
   if (row.length) {
     row[0].scrollIntoView({ behavior: "smooth", block: "center" });
