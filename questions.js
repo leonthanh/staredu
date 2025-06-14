@@ -129,7 +129,35 @@ const readingPart4 = `
     </div>
   </div>
 `;
-
+const readingPart5 = `
+  <div class="reading-panel">
+    <div class="reading-box" style="max-width:500px;margin:auto;">
+      <div class="reading-title"><b>EMAIL</b></div>
+      <div class="reading-body" style="margin-top:8px;">
+        <div><b>From:</b> Prisha</div>
+        <div><b>To:</b> Cara</div>
+        <div style="margin-top:10px;">
+          Hi Cara,<br><br>
+          Thanks <b>(0)</b> ............... your email and the photos of your hometown. I enjoy reading <b>(25)</b>
+          <input type="text" name="q25" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
+          your life in Edinburgh. It's very different from my life in New Delhi. I was interested to learn that you have the same hobby <b>(26)</b>
+          <input type="text" name="q26" maxlength="20" style="width:50px;display:inline-block;" autocomplete="off">
+          me. I love collecting old photos, <b>(27)</b>
+          <input type="text" name="q27" maxlength="20" style="width:50px;display:inline-block;" autocomplete="off">
+          . Can <b>(28)</b>
+          <input type="text" name="q28" maxlength="20" style="width:50px;display:inline-block;" autocomplete="off">
+          send me one from Scotland? I have photos of Delhi, Tokyo, Hong Kong, New York <b>(29)</b>
+          <input type="text" name="q29" maxlength="20" style="width:50px;display:inline-block;" autocomplete="off">
+          London. My favourite is one of the Red Fort in New Delhi. It's from 1858! What <b>(30)</b>
+          <input type="text" name="q30" maxlength="20" style="width:50px;display:inline-block;" autocomplete="off">
+          your favourite photos?<br><br>
+          Please write soon!<br>
+          Prisha
+        </div>
+      </div>
+    </div>
+  </div>
+`;
 // Questions for the KET test, part 1
 const questions = [
   {
@@ -177,8 +205,7 @@ const questions = [
   {
     index: 3,
     part: 1,
-    left: `<div class="phone-mockup">
-      <div class="dynamic-island"></div>
+    left: `<div class="phone-mockup">      
       <div class="phone-screen">
         <div style="font-weight:bold; margin-bottom:6px;">Hi Jamie,</div>
         <div>
@@ -405,6 +432,48 @@ const questions = [
     left: readingPart4,
     right: answersPart4,
     answer: "B"
+  },
+  {
+    index: 25,
+    part: 5,
+    left: readingPart5,
+    right: '', // Không cần panel phải
+    answer: "about"
+  },
+  {
+    index: 26,
+    part: 5,
+    left: readingPart5,
+    right: '',
+    answer: "as"
+  },
+  {
+    index: 27,
+    part: 5,
+    left: readingPart5,
+    right: '',
+    answer: "too"
+  },
+  {
+    index: 28,
+    part: 5,
+    left: readingPart5,
+    right: '',
+    answer: "you"
+  },
+  {
+    index: 29,
+    part: 5,
+    left: readingPart5,
+    right: '',
+    answer: "and"
+  },
+  {
+    index: 30,
+    part: 5,
+    left: readingPart5,
+    right: '',
+    answer: "are"
   },
 ];
 

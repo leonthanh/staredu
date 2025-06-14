@@ -590,3 +590,64 @@ $('#numberButtonsContainer4 .btn-number').on('click', function () {
     row[0].scrollIntoView({ behavior: "smooth", block: "center" });
   }
 });
+// Sự kiện click nút Part 5: hiện panel 25-30 và đổi tiêu đề
+$('#btnPart5').on('click', function () {
+  // Ẩn tất cả panel trái và phải
+  $('.panel-content.left').hide();
+  $('.panel-content.right').hide();
+  $('.divider').hide();
+
+  // Hiện panel trái của câu 25 (part 5)
+  $('.panel-content.left[data-index="25"]').show();
+
+  // Thêm class cho body để CSS áp dụng (nếu cần)
+  $('body').addClass('part5-only');
+
+  // Đánh dấu nút part 5 là active
+  $('[id^=btnPart]').removeClass('active');
+  $('#btnPart5').addClass('active');
+
+  // Hiện các nút số cho part 5 nếu có
+  $('.numberButtonsContainer').removeClass('show');
+  $('#numberButtonsContainer5').addClass('show');
+
+  // Đổi tiêu đề nếu cần
+  $('.question h3').text('Questions 25-30');
+  $('.question-type').text('For each question, type your answer.');
+});
+
+// Sự kiện click các nút số 25-30
+$('#numberButtonsContainer5 .btn-number').on('click', showPart5Panel);
+
+function resetPanels() {
+  $('.panel-content.left').hide();
+  $('.panel-content.right').hide();
+  $('.divider').show(); // <-- Dòng này đảm bảo divider hiện lại
+  $('body').removeClass('part5-only');
+}
+
+// Part 5
+function showPart5Panel() {
+  $('.panel-content.left').hide();
+  $('.panel-content.right').hide();
+  $('.divider').hide(); // <-- Ẩn divider khi vào part 5
+  $('.panel-content.left[data-index="25"]').show();
+  $('body').addClass('part5-only');
+  $('[id^=btnPart]').removeClass('active');
+  $('#btnPart5').addClass('active');
+  $('.numberButtonsContainer').removeClass('show');
+  $('#numberButtonsContainer5').addClass('show');
+  $('.question h3').text('Questions 25-30');
+  $('.question-type').text('For each question, type your answer.');
+}
+$('#btnPart5').on('click', showPart5Panel);
+$('#numberButtonsContainer5 .btn-number').on('click', showPart5Panel);
+
+// Part 1-4 (ví dụ Part 1)
+$('#btnPart1').on('click', function () {
+  resetPanels();
+  $('.panel-content.left[data-index="1"]').show();
+  $('.panel-content.right[data-index="1"]').show();
+  // ...các lệnh khác...
+});
+// Tương tự cho các part khác và các nút số
