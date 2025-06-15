@@ -9,26 +9,33 @@ const app = express();
 
 const upload = multer();
 
-// Cấu hình transporter cho Gmail (nên dùng App Password)
+// Đường dẫn an toàn cho file dữ liệu
+const DATA_DIR = path.join(__dirname, 'data');
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR);
+
+const RESULTS_FILE = path.join(DATA_DIR, 'results.json');
+const USERS_FILE = path.join(DATA_DIR, 'users.json');
+
+// Cấu hình transporter cho Gmail (nên dùng App Password và biến môi trường)
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'luongkhiemdu@gmail.com',
-    pass: 'wbgh yxdj ddsu esas'
+    user: process.env.MAIL_USER || 'luongkhiemdu@gmail.com',
+    pass: process.env.MAIL_PASS || 'wbgh yxdj ddsu esas'
   }
 });
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json()); // Thêm dòng này để đọc JSON từ client
+app.use(bodyParser.json());
 
 // Trang chủ
 app.get('/', (req, res) => {
-  res.render('index', { questions }); // Không kiểm tra ở đây, kiểm tra ở client
+  res.render('index', { questions });
 });
 
-// API lấy dữ liệu câu hỏi (nếu cần AJAX)
+// API lấy dữ liệu câu hỏi
 app.get('/api/questions', (req, res) => {
   res.json(questions);
 });
@@ -37,24 +44,26 @@ app.get('/api/questions', (req, res) => {
 app.post('/submit', upload.single('pdf'), async (req, res) => {
   try {
     const { score, total, time, answers } = req.body;
-    const pdfBuffer = req.file.buffer;
+    const pdfBuffer = req.file ? req.file.buffer : null;
 
-    // Gửi email cho admin
-    await transporter.sendMail({
-      from: '"KET Test" <luongkhiemdu@gmail.com>',
-      to: 'thientinh1984@gmail.com',
-      subject: 'Kết quả bài thi mới',
-      text: `Số điểm: ${score}/${total}\nThời gian: ${time}\nĐáp án: ${answers}`,
-      attachments: [
-        {
-          filename: 'result.pdf',
-          content: pdfBuffer
-        }
-      ]
-    });
+    // Gửi email cho admin nếu có file PDF
+    if (pdfBuffer) {
+      await transporter.sendMail({
+        from: '"KET Test" <luongkhiemdu@gmail.com>',
+        to: 'thientinh1984@gmail.com',
+        subject: 'Kết quả bài thi mới',
+        text: `Số điểm: ${score}/${total}\nThời gian: ${time}\nĐáp án: ${answers}`,
+        attachments: [
+          {
+            filename: 'result.pdf',
+            content: pdfBuffer
+          }
+        ]
+      });
+    }
 
-    // Lưu kết quả vào file như cũ
-    fs.appendFile('results.json', JSON.stringify({ score, total, time, answers }) + '\n', err => {});
+    // Lưu kết quả vào file
+    fs.appendFile(RESULTS_FILE, JSON.stringify({ score, total, time, answers }) + '\n', err => {});
 
     res.json({ success: true });
   } catch (err) {
@@ -62,8 +71,6 @@ app.post('/submit', upload.single('pdf'), async (req, res) => {
     res.status(500).json({ success: false, error: err.message });
   }
 });
-
-const USERS_FILE = 'users.json';
 
 // Đăng ký
 app.post('/register', (req, res) => {
