@@ -132,24 +132,30 @@ const readingPart4 = `
 const readingPart5 = `
   <div class="reading-panel">
     <div class="reading-box" style="max-width:500px;margin:auto;">
+        <div style="margin-bottom:8px;">
+      <b>Example:</b>
+      <input type="text" value="0" readonly style="width:30px; text-align:center; font-weight:bold; background:#eee; border:1px solid #888; margin-left:4px; margin-right:4px;">
+      <input type="text" value="for" readonly style="width:50px; font-style:italic; background:#f9f9f9; border:1px solid #888;">
+    </div>
+    <hr>
       <div class="reading-title"><b>EMAIL</b></div>
       <div class="reading-body" style="margin-top:8px;">
         <div><b>From:</b> Prisha</div>
         <div><b>To:</b> Cara</div>
         <div style="margin-top:10px;">
           Hi Cara,<br><br>
-          Thanks <b>(0)</b> ............... your email and the photos of your hometown. I enjoy reading <b>(25)</b>
+          Thanks <b>(0)</b> ............... your email and the photos of your hometown. I enjoy reading <b>(25)</b><button class="flag-btn" data-flag="25" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
           <input type="text" name="q25" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
-          your life in Edinburgh. It's very different from my life in New Delhi. I was interested to learn that you have the same hobby <b>(26)</b>
-          <input type="text" name="q26" maxlength="20" style="width:50px;display:inline-block;" autocomplete="off">
-          me. I love collecting old photos, <b>(27)</b>
-          <input type="text" name="q27" maxlength="20" style="width:50px;display:inline-block;" autocomplete="off">
-          . Can <b>(28)</b>
-          <input type="text" name="q28" maxlength="20" style="width:50px;display:inline-block;" autocomplete="off">
-          send me one from Scotland? I have photos of Delhi, Tokyo, Hong Kong, New York <b>(29)</b>
-          <input type="text" name="q29" maxlength="20" style="width:50px;display:inline-block;" autocomplete="off">
-          London. My favourite is one of the Red Fort in New Delhi. It's from 1858! What <b>(30)</b>
-          <input type="text" name="q30" maxlength="20" style="width:50px;display:inline-block;" autocomplete="off">
+          your life in Edinburgh. It's very different from my life in New Delhi. I was interested to learn that you have the same hobby <b>(26)</b><button class="flag-btn" data-flag="26" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+          <input type="text" name="q26" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
+          me. I love collecting old photos, <b>(27)</b><button class="flag-btn" data-flag="27" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+          <input type="text" name="q27" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
+          . Can <b>(28)</b><button class="flag-btn" data-flag="28" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+          <input type="text" name="q28" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
+          send me one from Scotland? I have photos of Delhi, Tokyo, Hong Kong, New York <b>(29)</b><button class="flag-btn" data-flag="29" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+          <input type="text" name="q29" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
+          London. My favourite is one of the Red Fort in New Delhi. It's from 1858! What <b>(30)</b><button class="flag-btn" data-flag="30" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+          <input type="text" name="q30" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
           your favourite photos?<br><br>
           Please write soon!<br>
           Prisha

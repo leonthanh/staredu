@@ -541,7 +541,7 @@
   border-radius: 12px 18px 24px 12px;
   box-shadow: 2px 4px 12px #0002;
   width: 260px;
-  margin: 0 auto 12px auto;
+  margin: 12px auto 12px auto;
   padding: 18px 20px 18px 20px;
   font-family: 'Segoe UI', Arial, sans-serif;
   position: relative;
@@ -671,6 +671,7 @@ h2 {
 }
 .question-block {
   margin-bottom: 18px;
+  
 }
 .question-row {
   font-weight: 500;

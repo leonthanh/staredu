@@ -613,11 +613,30 @@ $('#btnPart5').on('click', function () {
 
   // Đổi tiêu đề nếu cần
   $('.question h3').text('Questions 25-30');
-  $('.question-type').text('For each question, type your answer.');
+  $('.question-type').text('For each question, write the correct answer. Write one word for each gap.');
 });
 
 // Sự kiện click các nút số 25-30
-$('#numberButtonsContainer5 .btn-number').on('click', showPart5Panel);
+$('#numberButtonsContainer5 .btn-number').on('click', function () {
+  // Hiện panel trái part 5, ẩn panel phải và divider
+  $('.panel-content.left').hide();
+  $('.panel-content.right').hide();
+  $('.divider').hide();
+  $('.panel-content.left[data-index="25"]').show();
+  $('body').addClass('part5-only');
+
+  // Lấy số câu
+  var idx = $(this).data('index');
+
+  // Focus vào input của câu đó
+  setTimeout(function() {
+    $('input[name="q' + idx + '"]').focus();
+  }, 0);
+
+  // Đánh dấu nút số đang active (nếu cần)
+  $('.btn-number').removeClass('active');
+  $(this).addClass('active');
+});
 
 function resetPanels() {
   $('.divider').show(); // <-- Dòng này đảm bảo divider hiện lại
@@ -638,7 +657,7 @@ function showPart5Panel() {
   $('.numberButtonsContainer').removeClass('show');
   $('#numberButtonsContainer5').addClass('show');
   $('.question h3').text('Questions 25-30');
-  $('.question-type').text('For each question, type your answer.');
+  $('.question-type').html('For each question, write the correct answer. Write <strong>one</strong> word for each gap.');
 }
 $('#btnPart5').on('click', showPart5Panel);
 $('#numberButtonsContainer5 .btn-number').on('click', showPart5Panel);
@@ -649,6 +668,7 @@ $('#btnPart1').on('click', function () {
   $('.panel-content.left[data-index="1"]').show();
   $('.panel-content.right[data-index="1"]').show();
   // ...các lệnh khác...
+  
 });
 
 // Tương tự cho các part khác và các nút số
