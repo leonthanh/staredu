@@ -32,8 +32,8 @@ const questionsPart3 = `
       </div>
       
       <div class="question-options">
-        <label><input type="radio" name="q14" value="A"> A. to find out if she liked it</label><br>
-        <label><input type="radio" name="q14" value="B"> B. to be like her brother</label><br>
+        <label><input type="radio" name="q14" value="A"> A. to find out if she liked it</label>
+        <label><input type="radio" name="q14" value="B"> B. to be like her brother</label>
         <label><input type="radio" name="q14" value="C"> C. to make her dad happy</label>
       </div>
     </div>
@@ -41,32 +41,32 @@ const questionsPart3 = `
       <div class="question-row"><b>15</b> When Zoe was invited to her friend's birthday party she felt
       <button class="flag-btn" data-flag="15" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button></div>
       <div class="question-options">
-        <label><input type="radio" name="q15" value="A"> A. excited.</label><br>
-        <label><input type="radio" name="q15" value="B"> B. surprised.</label><br>
+        <label><input type="radio" name="q15" value="A"> A. excited.</label>
+        <label><input type="radio" name="q15" value="B"> B. surprised.</label>
         <label><input type="radio" name="q15" value="C"> C. worried.</label>
       </div>
     </div>
     <div class="question-block" id="q16">
       <div class="question-row"><b>16</b> What is Zoe explaining in the third paragraph?<button class="flag-btn" data-flag="16" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button></div>
       <div class="question-options">
-        <label><input type="radio" name="q16" value="A"> A. how gymnastics helped her learn to snowboard</label><br>
-        <label><input type="radio" name="q16" value="B"> B. how important it is to have more than one hobby</label><br>
+        <label><input type="radio" name="q16" value="A"> A. how gymnastics helped her learn to snowboard</label>
+        <label><input type="radio" name="q16" value="B"> B. how important it is to have more than one hobby</label>
         <label><input type="radio" name="q16" value="C"> C. how long it takes for most people to learn to snowboard</label>
       </div>
     </div>
     <div class="question-block" id="q17">
       <div class="question-row"><b>17</b> What does Zoe say about living in Italy?<button class="flag-btn" data-flag="17" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button></div>
       <div class="question-options">
-        <label><input type="radio" name="q17" value="A"> A. Her snowboarding improved a lot.</label><br>
-        <label><input type="radio" name="q17" value="B"> B. She missed snowboarding with her friends.</label><br>
+        <label><input type="radio" name="q17" value="A"> A. Her snowboarding improved a lot.</label>
+        <label><input type="radio" name="q17" value="B"> B. She missed snowboarding with her friends.</label>
         <label><input type="radio" name="q17" value="C"> C. She met a lot of excellent snowboarders there.</label>
       </div>
     </div>
     <div class="question-block" id="q18">
       <div class="question-row"><b>18</b> What does Zoe say about snowboarding in the final paragraph?<button class="flag-btn" data-flag="18" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button></div>
       <div class="question-options">
-        <label><input type="radio" name="q18" value="A"> A. She would like to go without her family next time.</label><br>
-        <label><input type="radio" name="q18" value="B"> B. She's sorry she can't go more often.</label><br>
+        <label><input type="radio" name="q18" value="A"> A. She would like to go without her family next time.</label>
+        <label><input type="radio" name="q18" value="B"> B. She's sorry she can't go more often.</label>
         <label><input type="radio" name="q18" value="C"> C. She never gets bored of going.</label>
       </div>
     </div>

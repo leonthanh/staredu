@@ -620,9 +620,9 @@ $('#btnPart5').on('click', function () {
 $('#numberButtonsContainer5 .btn-number').on('click', showPart5Panel);
 
 function resetPanels() {
+  $('.divider').show(); // <-- Dòng này đảm bảo divider hiện lại
   $('.panel-content.left').hide();
   $('.panel-content.right').hide();
-  $('.divider').show(); // <-- Dòng này đảm bảo divider hiện lại
   $('body').removeClass('part5-only');
 }
 
@@ -650,4 +650,12 @@ $('#btnPart1').on('click', function () {
   $('.panel-content.right[data-index="1"]').show();
   // ...các lệnh khác...
 });
+
 // Tương tự cho các part khác và các nút số
+$('#btnPart1, #btnPart2, #btnPart3, #btnPart4').on('click', function () {
+  $('.divider').show(); // Hiện lại thanh resize
+  // $('.panel-content.right').show();
+  $('body').removeClass('part5-only');
+  // ... các lệnh show/hide panel khác ...
+});
+
