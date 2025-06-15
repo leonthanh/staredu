@@ -670,12 +670,57 @@ $('#btnPart1').on('click', function () {
   // ...các lệnh khác...
   
 });
+//part 6
+$('#btnPart6').on('click', function () {
+  resetPanels();
+  $('.panel-content.left[data-index="31"]').show();
+  $('.panel-content.right[data-index="31"]').show();
+  $('.divider').show(); // Hiện lại thanh resize  
+  $('body').removeClass('part5-only');
+  $('[id^=btnPart]').removeClass('active');
+  $('#btnPart6').addClass('active');
+  $('.numberButtonsContainer').removeClass('show');
+  $('#numberButtonsContainer6').addClass('show');
+  // Đổi tiêu đề câu hỏi
+     $('.question h3').text('Questions 31');
+  $('.question-type').text('');
+});
 
 // Tương tự cho các part khác và các nút số
-$('#btnPart1, #btnPart2, #btnPart3, #btnPart4').on('click', function () {
+$('#btnPart1, #btnPart2, #btnPart3, #btnPart4, #btnPart6').on('click', function () {
   $('.divider').show(); // Hiện lại thanh resize
   // $('.panel-content.right').show();
   $('body').removeClass('part5-only');
   // ... các lệnh show/hide panel khác ...
 });
+
+$('#writing-part6-answer').on('input', function() {
+  const text = $(this).val();
+  localStorage.setItem('writing_part6_answer', text);
+
+  // Đếm từ
+  const count = text.trim() ? text.trim().split(/\s+/).length : 0;
+  $('#writing-part6-wordcount').text(count);
+});
+
+$(document).ready(function() {
+  const saved = localStorage.getItem('writing_part6_answer');
+  if (saved !== null) {
+    $('#writing-part6-answer').val(saved);
+
+    // Đếm từ khi khôi phục
+    const count = saved.trim() ? saved.trim().split(/\s+/).length : 0;
+    $('#writing-part6-wordcount').text(count);
+  }
+});
+
+$('#submitBtn').on('click', function() {
+  // ...xử lý nộp bài...
+  localStorage.removeItem('writing_part6_answer');
+});
+
+function onTimeUp() {
+  // ...xử lý hết giờ...
+  localStorage.removeItem('writing_part6_answer');
+}
 

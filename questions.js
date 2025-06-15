@@ -23,7 +23,8 @@ const readingPart3 = `
         These days all our family holidays are spent snowboarding. I love everything about it - the fresh air, the views, even the clothes. But more than anything, I love the fact that there's always something new to learn. That's what keeps it interesting for me.
       </div>
     </div>
-  </div> `;
+  </div> 
+`;
 const questionsPart3 = `
   <div class="multi-question-table">
     <div class="question-block" id="q14">
@@ -162,6 +163,40 @@ const readingPart5 = `
         </div>
       </div>
     </div>
+  </div>
+`;
+const writingPart6 = `
+  <div class="writing-panel" style="max-width:500px;margin:auto;">
+    <div style="margin-bottom:10px;">
+      You are going camping with your English friend Alex this weekend.<br>
+      Write an email to Alex.
+    </div>
+    <div>
+      <b>In your email:</b>
+      <ul style="margin-top:6px;">
+        <li>say what time is a good time to meet</li>
+        <li>tell him what to bring</li>
+        <li>say what activities you can do while camping.</li>
+      </ul>
+    </div>
+  </div>
+`;
+const writingPanelRightPart6 = `
+  <div style="margin-top:16px;">
+    <div style="font-size:15px; color:#666;">
+      Write <b>25 words</b> or more.
+    </div>
+    <div style="margin-top:10px; font-weight:bold; color:#555;">
+      Write the email on your answer sheet.
+    </div>
+    <button class="flag-btn" data-flag="31" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+  </div>
+
+  <div style="position:relative;">
+      <textarea id="writing-part6-answer" rows="10" style="width:100%; min-height:220px; resize:vertical; font-size:16px; padding:10px; box-sizing:border-box;"></textarea>
+      <span style="position:absolute; right:12px; bottom:8px; color:#222; font-size:16px;">
+        Words: <span id="writing-part6-wordcount">0</span>
+      </span>  
   </div>
 `;
 // Questions for the KET test, part 1
@@ -481,6 +516,13 @@ const questions = [
     right: '',
     answer: "are"
   },
+  {
+    index: 31,
+    part: 6,
+    left: writingPart6,
+    right: writingPanelRightPart6,
+    answer: "Hi Alex,\n\nI think we should meet at the bus station at 10am on Saturday. Please bring a tent, sleeping bag, and some food. We can go hiking, fishing, and maybe even try cooking over a campfire.\n\nSee you soon!\nPrisha"
+  }
 ];
 
 
