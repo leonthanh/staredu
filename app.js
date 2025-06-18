@@ -20,8 +20,8 @@ const USERS_FILE = path.join(DATA_DIR, 'users.json');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.MAIL_USER || 'luongkhiemdu@gmail.com',
-    pass: process.env.MAIL_PASS || 'wbgh yxdj ddsu esas'
+    user: process.env.MAIL_USER || 'stareduelt@gmail.com',
+    pass: process.env.MAIL_PASS || 'xrrz fqwq xwdc hujb'
   }
 });
 
@@ -49,7 +49,7 @@ app.post('/submit', upload.single('pdf'), async (req, res) => {
     // Gửi email cho admin nếu có file PDF
     if (pdfBuffer) {
       await transporter.sendMail({
-        from: '"KET Test" <luongkhiemdu@gmail.com>',
+        from: '"KET Test" <stareduelt@gmail.com>',
         to: 'thientinh1984@gmail.com',
         subject: 'Kết quả bài thi mới',
         text: `Số điểm: ${score}/${total}\nThời gian: ${time}\nĐáp án: ${answers}`,

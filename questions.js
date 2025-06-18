@@ -199,6 +199,29 @@ const writingPanelRightPart6 = `
       </span>  
   </div>
 `;
+const writingPanelLeftPart7 = `
+  <div style="margin-bottom:16px;">
+    <b>Look at the three pictures.<br>
+    Write the story shown in the pictures.<br>
+    Write <span style="font-weight:bold;">35 words</span> or more.</b>
+  </div>
+  <div style="text-align:center;">
+    // <img src="PATH_TO_IMAGE/part7-cau32.png" alt="Part 7 - Câu 32" style="max-width:100%; height:auto; border:1px solid #ccc;"/>
+  </div>
+`;
+const writingPanelRightPart7 = `
+  <div style="margin-bottom: 12px;">
+    <b>Your answer:</b>
+      <button class="flag-btn" data-flag="32" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+  </div>
+  <div style="position:relative;">
+      <textarea id="writing-part7-answer" rows="10" style="width:100%; min-height:220px; resize:vertical; font-size:16px; padding:10px; box-sizing:border-box;"></textarea>
+        <span style="position:absolute; right:12px; bottom:8px; color:#222; font-size:16px;">
+        Words: <span id="writing-part7-wordcount">0</span>
+        </span>  
+  </div>
+  
+`;
 // Questions for the KET test, part 1
 const questions = [
   {
@@ -522,6 +545,13 @@ const questions = [
     left: writingPart6,
     right: writingPanelRightPart6,
     answer: "Hi Alex,\n\nI think we should meet at the bus station at 10am on Saturday. Please bring a tent, sleeping bag, and some food. We can go hiking, fishing, and maybe even try cooking over a campfire.\n\nSee you soon!\nPrisha"
+  },
+  {
+    index: 32,
+    part: 7,
+    left: writingPanelLeftPart7,
+    right: writingPanelRightPart7,
+    answer: "In the morning, Johnny was unhappy because his sister Rachel was listening to music and singing loudly. In the afternoon, Rachel was angry because Johnny was talking loudly on his phone. At night, they played video games together and had fun."
   }
 ];
 

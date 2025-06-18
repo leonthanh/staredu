@@ -91,6 +91,23 @@ $(document).on('keydown', function(e) {
 // Giả sử bạn đã có biến userAnswers, questions, score, ...
 $('#btnCheck').off('click').on('click', function () {
   finishExam();
+
+  // Xóa dữ liệu Part 5 khỏi localStorage
+    for (let i = 25; i <= 30; i++) {
+    localStorage.removeItem(`part5-q${i}`);
+    $(`#part5-q${i}`).val('');
+  }
+  // Xóa dữ liệu Part 6 và Part 7 khỏi localStorage
+localStorage.removeItem('writing_part6_answer');
+localStorage.removeItem('writing_part7_answer');
+
+// Làm trống ô nhập Part 6 và Part 7 (nếu đang hiển thị)
+$('#writing-part6-answer').val('');
+$('#writing-part7-answer').val('');
+
+// Reset word count về 0
+$('#writing-part6-wordcount').text(0);
+$('#writing-part7-wordcount').text(0);
 });
 
 function finishExam() {
@@ -687,40 +704,102 @@ $('#btnPart6').on('click', function () {
 });
 
 // Tương tự cho các part khác và các nút số
-$('#btnPart1, #btnPart2, #btnPart3, #btnPart4, #btnPart6').on('click', function () {
+$('#btnPart1, #btnPart2, #btnPart3, #btnPart4, #btnPart6, #btnPart7').on('click', function () {
   $('.divider').show(); // Hiện lại thanh resize
   // $('.panel-content.right').show();
   $('body').removeClass('part5-only');
   // ... các lệnh show/hide panel khác ...
 });
-
+// Xử lý sự kiện nhập liệu cho phần viết Part 6
 $('#writing-part6-answer').on('input', function() {
   const text = $(this).val();
   localStorage.setItem('writing_part6_answer', text);
-
   // Đếm từ
   const count = text.trim() ? text.trim().split(/\s+/).length : 0;
   $('#writing-part6-wordcount').text(count);
 });
-
+  
+  // Khôi phục đáp án đã lưu cho phần viết Part 6
 $(document).ready(function() {
   const saved = localStorage.getItem('writing_part6_answer');
   if (saved !== null) {
     $('#writing-part6-answer').val(saved);
-
+    
     // Đếm từ khi khôi phục
     const count = saved.trim() ? saved.trim().split(/\s+/).length : 0;
     $('#writing-part6-wordcount').text(count);
-  }
+    }
 });
 
+
+//Part 7
+$('#btnPart7').on('click', function () {
+  resetPanels();
+  $('.panel-content.left[data-index="32"]').show();
+  $('.panel-content.right[data-index="32"]').show();
+  $('.divider').show(); // Hiện lại thanh resize
+  $('body').removeClass('part5-only');
+  $('[id^=btnPart]').removeClass('active');
+  $('#btnPart7').addClass('active');
+  $('.numberButtonsContainer').removeClass('show');
+  $('#numberButtonsContainer7').addClass('show');
+  // Đổi tiêu đề câu hỏi
+  $('.question h3').text('Questions 32');
+  $('.question-type').text('');
+});
+
+// Xử lý sự kiện nhập liệu cho phần viết Part 7
+$('#writing-part7-answer').on('input', function() {
+  const text7 = $(this).val();
+  localStorage.setItem('writing_part7_answer', text7);
+
+  // Đếm từ realtime
+  const count7 = text7.trim() ? text7.trim().split(/\s+/).length : 0;
+  $('#writing-part7-wordcount').text(count7);
+});
+
+// Khi load trang, khôi phục nội dung đã lưu cho phần viết Part 7
+$(document).ready(function() {
+  const saved7 = localStorage.getItem('writing_part7_answer');
+  if (saved7 !== null) {
+    $('#writing-part7-answer').val(saved7);
+
+    // Đếm từ khi khôi phục
+    const count7 = saved7.trim() ? saved7.trim().split(/\s+/).length : 0;
+    $('#writing-part7-wordcount').text(count7);
+  } else {
+    $('#writing-part7-wordcount').text(0);
+  }
+});
 $('#submitBtn').on('click', function() {
   // ...xử lý nộp bài...
+
   localStorage.removeItem('writing_part6_answer');
+  localStorage.removeItem('writing_part7_answer');
+
 });
 
 function onTimeUp() {
   // ...xử lý hết giờ...
+
   localStorage.removeItem('writing_part6_answer');
+  localStorage.removeItem('writing_part7_answer');
 }
+
+// Lưu đáp án mỗi khi người dùng nhập
+for (let i = 25; i <= 30; i++) {
+  $(`#part5-q${i}`).on('input', function() {
+    localStorage.setItem(`part5-q${i}`, $(this).val());
+  });
+}
+// Khôi phục đáp án đã lưu khi load trang
+$(document).ready(function() {
+  for (let i = 25; i <= 30; i++) {
+    const saved = localStorage.getItem(`part5-q${i}`);
+    if (saved !== null) {
+      $(`#part5-q${i}`).val(saved);
+    }
+  }
+});
+
 
