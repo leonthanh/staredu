@@ -661,12 +661,31 @@ function resetPanels() {
   $('.panel-content.right').hide();
   $('body').removeClass('part5-only');
 }
+function restorePart5Inputs() {
+  for (let i = 25; i <= 30; i++) {
+    const savedAnswer = localStorage.getItem(`part5_q${i}`);
+    if (savedAnswer !== null) {
+      $(`#part5-q${i}`).val(savedAnswer);
+    }
+  }
+}
 
+// Gắn sự kiện cho mỗi ô input Part 5 để lưu nội dung khi gõ:
+for (let i = 25; i <= 30; i++) {
+  $(`#part5-q${i}`).on('input', function() {
+    localStorage.setItem(`part5_q${i}`, $(this).val());
+  });
+}
+
+// Khi load trang, tự động khôi phục các ô input của Part 5:
+$(document).ready(function() {
+  restorePart5Inputs();
+});
 // Part 5
 function showPart5Panel() {
   $('.panel-content.left').hide();
   $('.panel-content.right').hide();
-  $('.divider').hide(); // <-- Ẩn divider khi vào part 5
+  $('.divider').hide(); // Ẩn divider cho part 5
   $('.panel-content.left[data-index="25"]').show();
   $('body').addClass('part5-only');
   $('[id^=btnPart]').removeClass('active');
@@ -675,6 +694,9 @@ function showPart5Panel() {
   $('#numberButtonsContainer5').addClass('show');
   $('.question h3').text('Questions 25-30');
   $('.question-type').html('For each question, write the correct answer. Write <strong>one</strong> word for each gap.');
+
+  // Sau khi hiển thị panel Part5, gọi hàm khôi phục nhập liệu:
+  restorePart5Inputs();
 }
 $('#btnPart5').on('click', showPart5Panel);
 $('#numberButtonsContainer5 .btn-number').on('click', showPart5Panel);
@@ -786,20 +808,5 @@ function onTimeUp() {
   localStorage.removeItem('writing_part7_answer');
 }
 
-// Lưu đáp án mỗi khi người dùng nhập
-for (let i = 25; i <= 30; i++) {
-  $(`#part5-q${i}`).on('input', function() {
-    localStorage.setItem(`part5-q${i}`, $(this).val());
-  });
-}
-// Khôi phục đáp án đã lưu khi load trang
-$(document).ready(function() {
-  for (let i = 25; i <= 30; i++) {
-    const saved = localStorage.getItem(`part5-q${i}`);
-    if (saved !== null) {
-      $(`#part5-q${i}`).val(saved);
-    }
-  }
-});
 
 

@@ -146,17 +146,17 @@ const readingPart5 = `
         <div style="margin-top:10px;">
           Hi Cara,<br><br>
           Thanks <b>(0)</b> ............... your email and the photos of your hometown. I enjoy reading <b>(25)</b><button class="flag-btn" data-flag="25" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
-          <input type="text" name="q25" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
+          <input type="text" id="part5-q25" name="q25" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
           your life in Edinburgh. It's very different from my life in New Delhi. I was interested to learn that you have the same hobby <b>(26)</b><button class="flag-btn" data-flag="26" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
-          <input type="text" name="q26" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
+          <input type="text" id="part5-q26" name="q26" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
           me. I love collecting old photos, <b>(27)</b><button class="flag-btn" data-flag="27" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
-          <input type="text" name="q27" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
+          <input type="text" id="part5-q27" name="q27" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
           . Can <b>(28)</b><button class="flag-btn" data-flag="28" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
-          <input type="text" name="q28" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
+          <input type="text" id="part5-q28" name="q28" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
           send me one from Scotland? I have photos of Delhi, Tokyo, Hong Kong, New York <b>(29)</b><button class="flag-btn" data-flag="29" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
-          <input type="text" name="q29" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
+          <input type="text" id="part5-q29" name="q29" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
           London. My favourite is one of the Red Fort in New Delhi. It's from 1858! What <b>(30)</b><button class="flag-btn" data-flag="30" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
-          <input type="text" name="q30" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
+          <input type="text" id="part5-q30" name="q30" maxlength="20" style="width:70px;display:inline-block;" autocomplete="off">
           your favourite photos?<br><br>
           Please write soon!<br>
           Prisha
@@ -206,7 +206,9 @@ const writingPanelLeftPart7 = `
     Write <span style="font-weight:bold;">35 words</span> or more.</b>
   </div>
   <div style="text-align:center;">
-    // <img src="PATH_TO_IMAGE/part7-cau32.png" alt="Part 7 - Câu 32" style="max-width:100%; height:auto; border:1px solid #ccc;"/>
+    <img src="/images/ket32-1.png" alt="Part 7 - Câu 32" style="max-width:50%; height:auto; border:1px solid #ccc;"/>
+    <img src="/images/ket32-2.png" alt="Part 7 - Câu 32" style="max-width:50%; height:auto; border:1px solid #ccc;"/>
+    <img src="/images/ket32-3.png" alt="Part 7 - Câu 32" style="max-width:50%; height:auto; border:1px solid #ccc;"/>
   </div>
 `;
 const writingPanelRightPart7 = `
