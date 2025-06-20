@@ -94,7 +94,7 @@ $('#btnCheck').off('click').on('click', function () {
 
   // Xóa dữ liệu Part 5 khỏi localStorage
     for (let i = 25; i <= 30; i++) {
-    localStorage.removeItem(`part5-q${i}`);
+    localStorage.removeItem(`part5_q${i}`);
     $(`#part5-q${i}`).val('');
   }
   // Xóa dữ liệu Part 6 và Part 7 khỏi localStorage
