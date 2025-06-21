@@ -122,6 +122,11 @@ function finishExam() {
   const userName = localStorage.getItem('userName') || '';
   const userPhone = localStorage.getItem('userPhone') || '';
 
+  // ĐỒNG BỘ ĐÁP ÁN PART 5 VÀO userAnswers
+  for (let i = 25; i <= 30; i++) {
+    userAnswers[i] = $(`#part5-q${i}`).val() || '-';
+  }
+
   // Hiện popup NGAY LẬP TỨC
   if ($('#popin-submit').length) return;
   $('body').append(`

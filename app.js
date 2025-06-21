@@ -8,7 +8,7 @@ const nodemailer = require('nodemailer');
 const app = express();
 const PDFDocument = require('pdfkit');
 const upload = multer();
-const { Document, Packer, Paragraph } = require('docx');
+
 
 // Đường dẫn an toàn cho file dữ liệu
 const DATA_DIR = path.join(__dirname, 'data');
@@ -77,20 +77,7 @@ app.post('/submit', upload.single('pdf'), async (req, res) => {
         userPhone = user.phone;
       }
     }
-
-    // Xây dựng nội dung kết quả đầy đủ
-    const content = buildFullResultContent(answers, userName, userPhone, score, total, time);
-
-    // Tạo file txt
-    const txtBuffer = Buffer.from(content, 'utf-8');
-
-    // Tạo file Word
-    const doc = new Document({
-      sections: [{
-        properties: {},
-        children: buildDocxContent(answers, userName, userPhone, score, total, time),
-      }],
-    });
+  
     const wordBuffer = await Packer.toBuffer(doc);
 
     // Gửi mail với các file đính kèm
@@ -192,6 +179,3 @@ function buildDocxContent(userAnswers, userName, userPhone, score, total, time) 
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
-
-const content = buildFullResultContent(userAnswers, userName, userPhone, score, total, time);
-fs.writeFileSync('./result.txt', content);
