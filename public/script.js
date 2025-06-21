@@ -110,11 +110,31 @@ $('#writing-part6-wordcount').text(0);
 $('#writing-part7-wordcount').text(0);
 });
 
+function normalizeAnswer(ans) {
+  // Chuẩn hóa: xóa khoảng trắng đầu/cuối, chuyển về chữ thường
+  return (ans || '').toString().trim().toLowerCase();
+}
+
 function finishExam() {
+  // ĐỒNG BỘ ĐÁP ÁN PART 5 VÀO userAnswers TRƯỚC KHI TÍNH ĐIỂM
+  for (let i = 25; i <= 30; i++) {
+    userAnswers[i] = $(`#part5-q${i}`).val() || '-';
+  }
+
   let score = 0;
   questions.forEach(q => {
-    if (userAnswers[q.index] === q.answer) {
-      score += 1;
+    let userAns = userAnswers[q.index];
+    let correctAns = typeof q.answer === 'string' ? q.answer : (q.answer.text || q.answer.value || '');
+    // Nếu là Part 5 (câu 25-30): so sánh không phân biệt hoa thường, khoảng trắng
+    if (q.index >= 25 && q.index <= 30) {
+      if (normalizeAnswer(userAns) === normalizeAnswer(correctAns)) {
+        score += 1;
+      }
+    } else {
+      // Các phần khác giữ nguyên cách chấm cũ
+      if (userAns === correctAns) {
+        score += 1;
+      }
     }
   });
 
@@ -128,8 +148,8 @@ function finishExam() {
   }
 
   // Hiện popup NGAY LẬP TỨC
-  if ($('#popin-submit').length) return;
-  $('body').append(`
+    if ($('#popin-submit').length) return;
+    $('body').append(`
     <div id="popin-submit" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:2000;display:flex;align-items:center;justify-content:center;">
       <div style="background:#fff;padding:32px 24px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.18);min-width:220px;text-align:center;">
         <h2 style="color:#2575fc;margin-bottom:12px;">Đã nộp bài!</h2>
@@ -138,10 +158,10 @@ function finishExam() {
         <button id="closePopin" style="margin-top:18px;padding:8px 18px;border-radius:8px;border:none;background:#2575fc;color:#fff;font-weight:bold;cursor:pointer;">Đóng</button>
       </div>
     </div>
-  `);
-  $('#closePopin').on('click', function () {
+    `);
+    $('#closePopin').on('click', function () {
     $('#popin-submit').remove();
-  });
+    });
 
   // Tạo PDF và gửi lên server (chạy nền)
   let doc = new window.jspdf.jsPDF();
