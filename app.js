@@ -1,13 +1,14 @@
 const express = require('express');
 const path = require('path');
-const questions = require('./questions.js');
+const questions = require('./questions'); // Đảm bảo đã require đúng
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const nodemailer = require('nodemailer');
 const app = express();
-
+const PDFDocument = require('pdfkit');
 const upload = multer();
+const { Document, Packer, Paragraph } = require('docx');
 
 // Đường dẫn an toàn cho file dữ liệu
 const DATA_DIR = path.join(__dirname, 'data');
@@ -65,6 +66,51 @@ app.post('/submit', upload.single('pdf'), async (req, res) => {
     // Lưu kết quả vào file
     fs.appendFile(RESULTS_FILE, JSON.stringify({ score, total, time, answers }) + '\n', err => {});
 
+    // Lấy thông tin người dùng từ số điện thoại (nếu cần)
+    const phone = answers.find(a => /^0\d{9,10}$/.test(a));
+    let userName = '', userPhone = '';
+    if (phone) {
+      const users = fs.existsSync(USERS_FILE) ? JSON.parse(fs.readFileSync(USERS_FILE)) : [];
+      const user = users.find(u => u.phone === phone);
+      if (user) {
+        userName = user.name;
+        userPhone = user.phone;
+      }
+    }
+
+    // Xây dựng nội dung kết quả đầy đủ
+    const content = buildFullResultContent(answers, userName, userPhone, score, total, time);
+
+    // Tạo file txt
+    const txtBuffer = Buffer.from(content, 'utf-8');
+
+    // Tạo file Word
+    const doc = new Document({
+      sections: [{
+        properties: {},
+        children: buildDocxContent(answers, userName, userPhone, score, total, time),
+      }],
+    });
+    const wordBuffer = await Packer.toBuffer(doc);
+
+    // Gửi mail với các file đính kèm
+    await transporter.sendMail({
+      from: '"KET Test" <stareduelt@gmail.com>',
+      to: 'thientinh1984@gmail.com',
+      subject: 'Kết quả bài thi - ' + userName,
+      text: `Kết quả bài thi của bạn: ${score}/${total}\nThời gian: ${time} giây`,
+      attachments: [
+        {
+          filename: 'result.txt',
+          content: txtBuffer
+        },
+        {
+          filename: 'result.docx',
+          content: wordBuffer
+        }
+      ]
+    });
+
     res.json({ success: true });
   } catch (err) {
     console.error(err);
@@ -98,5 +144,54 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
+function buildFullResultContent(userAnswers, userName, userPhone, score, total, time) {
+  let text = `TEST RESULT\n`;
+  text += `Name: ${userName}\nPhone: ${userPhone}\nTime: ${time}\nScore: ${score}/${total}\n\n`;
+
+  let currentPart = 0;
+  questions.forEach(q => {
+    if (q.part !== currentPart) {
+      currentPart = q.part;
+      text += `\n--- Part ${currentPart} ---\n`;
+    }
+    let userAns = userAnswers[q.index] || '-';
+    let correctAns = getAnswerText(q.answer);
+    text += `Q${q.index}: Your answer: ${userAns} | Correct: ${correctAns}\n`;
+  });
+
+  return text;
+}
+
+function buildDocxContent(userAnswers, userName, userPhone, score, total, time) {
+  const content = [
+    new Paragraph(`TEST RESULT`),
+    new Paragraph(`Name: ${userName}`),
+    new Paragraph(`Phone: ${userPhone}`),
+    new Paragraph(`Time: ${time}`),
+    new Paragraph(`Score: ${score}/${total}`),
+  ];
+
+  let currentPart = 0;
+  questions.forEach(q => {
+    if (q.part !== currentPart) {
+      currentPart = q.part;
+      content.push(new Paragraph(``));
+      content.push(new Paragraph(`--- Part ${currentPart} ---`));
+    }
+    let userAns = userAnswers[q.index] || '-';
+    // Nếu là Part 6, 7 (tự luận), in riêng
+    if (q.part === 6 || q.part === 7) {
+      content.push(new Paragraph(`Q${q.index}: ${userAns}`));
+    } else {
+      content.push(new Paragraph(`Q${q.index}: Your answer: ${userAns} | Correct: ${getAnswerText(q.answer)}`));
+    }
+  });
+
+  return content;
+}
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
+
+const content = buildFullResultContent(userAnswers, userName, userPhone, score, total, time);
+fs.writeFileSync('./result.txt', content);

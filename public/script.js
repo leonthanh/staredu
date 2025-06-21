@@ -146,33 +146,103 @@ function finishExam() {
   doc.text('Phone: ' + userPhone, 10, 30);
   doc.text('Time: ' + new Date().toLocaleString(), 10, 40);
   doc.text('Score: ' + score + '/' + questions.length, 10, 50);
-
-  // Hiển thị câu hỏi và đáp án
   let y = 60;
-  questions.forEach(q => {
-    doc.text(
-      `Q${q.index}: Your answer: ${userAnswers[q.index] || '-'} | Correct: ${q.answer}`,
-      10, y
-    );
+
+// Duyệt qua từng câu hỏi
+questions.forEach(q => {
+  let userAns = userAnswers[q.index] || '-';
+  let correctAns = typeof q.answer === 'string' ? q.answer : (q.answer.text || q.answer.value || JSON.stringify(q.answer));
+
+  // Nếu là câu tự luận (31, 32) hoặc đáp án dài
+  if (q.index === 31 || q.index === 32) {
+    doc.text(`Q${q.index}:`, 10, y);
+    y += 8;
+
+    // Chia nhỏ đoạn text để vừa trang
+    let answerLines = doc.splitTextToSize(userAns, 180);
+    answerLines.forEach(line => {
+      if (y > 270) { // Gần cuối trang A4
+        doc.addPage();
+        y = 20;
+      }
+      doc.text(line, 14, y);
+      y += 8;
+    });
+
+    // In đáp án đúng (nếu muốn)
+    doc.text('Correct:', 10, y);
+    y += 8;
+    let correctLines = doc.splitTextToSize(correctAns, 180);
+    correctLines.forEach(line => {
+      if (y > 270) {
+        doc.addPage();
+        y = 20;
+      }
+      doc.text(line, 14, y);
+      y += 8;
+    });
+  } else {
+    // Các câu khác
+    let line = `Q${q.index}: Your answer: ${userAns} | Correct: ${correctAns}`;
+    if (y > 270) {
+      doc.addPage();
+      y = 20;
+    }
+    doc.text(line, 10, y);
     y += 10;
-  });
+  }
+});
 
-  const arrayBuffer = doc.output('arraybuffer');
-  const pdfBlob = new Blob([arrayBuffer], { type: 'application/pdf' });
+// --- Thêm xuất Part 5 ---
+doc.text('--- Part 5: Fill in the blanks (Q25-30) ---', 10, y);
+y += 10;
+for (let i = 25; i <= 30; i++) {
+  doc.text(
+    `Q${i}: ${userAnswers[i] || '-'}`,
+    10, y
+  );
+  y += 10;
+  if (y > 270) {
+    doc.addPage();
+    y = 20;
+  }
+}
 
-  let formData = new FormData();
-  formData.append('pdf', pdfBlob, 'result.pdf');
-  formData.append('score', score);
-  formData.append('total', questions.length);
-  formData.append('time', new Date().toISOString());
-  formData.append('answers', JSON.stringify(userAnswers));
-  formData.append('userName', userName);
-  formData.append('userPhone', userPhone);
+// --- Thêm xuất Part 6 ---
+doc.text('--- Part 6: Writing (Q31) ---', 10, y);
+y += 10;
+const part6 = localStorage.getItem('writing_part6_answer') || '-';
+doc.text(doc.splitTextToSize(part6, 180), 10, y);
+y += 10 + 8 * Math.ceil(part6.length / 80);
+if (y > 270) {
+  doc.addPage();
+  y = 20;
+}
 
-  fetch('/submit', {
-    method: 'POST',
-    body: formData
-  }).catch(err => {
+// --- Thêm xuất Part 7 ---
+doc.text('--- Part 7: Writing (Q32) ---', 10, y);
+y += 10;
+const part7 = localStorage.getItem('writing_part7_answer') || '-';
+doc.text(doc.splitTextToSize(part7, 180), 10, y);
+
+// Gửi file PDF lên server
+const arrayBuffer = doc.output('arraybuffer');
+const pdfBlob = new Blob([arrayBuffer], { type: 'application/pdf' });
+
+let formData = new FormData();
+formData.append('pdf', pdfBlob, 'result.pdf');
+formData.append('score', score);
+formData.append('total', questions.length);
+formData.append('time', new Date().toISOString());
+formData.append('answers', JSON.stringify(userAnswers));
+formData.append('userName', userName);
+formData.append('userPhone', userPhone);
+
+
+fetch('/submit', {
+  method: 'POST',
+  body: formData
+}).catch(err => {
     alert('Có lỗi khi gửi kết quả. Vui lòng thử lại!');
     console.error(err);
   });
@@ -807,6 +877,15 @@ function onTimeUp() {
   localStorage.removeItem('writing_part6_answer');
   localStorage.removeItem('writing_part7_answer');
 }
+
+const txtContent = `Name: ${userName}\nPhone: ${userPhone}\nTime: ${time}\nScore: ${score}/${total}\nAnswers:\n` +
+  Object.keys(answersObj || {}).map(idx => `Q${idx}: ${answersObj[idx]}`).join('\n');
+
+attachments.push({
+  filename: 'result.txt',
+  content: txtContent
+});
+
 
 
 
