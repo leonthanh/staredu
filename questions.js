@@ -421,13 +421,7 @@ const questions = [
     part: 3,
     left: readingPart3,
     right: questionsPart3,
-    answer: {
-      14: "B",
-      15: "C",
-      16: "A",
-      17: "A",
-      18: "C"      
-    }
+    answer: "B"
   },
   {
     index: 15,
