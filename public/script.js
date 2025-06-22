@@ -625,14 +625,14 @@ function updateTimerDisplay(seconds) {
   $('#exam-timer').text((m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s);
 };
 // Sự kiện click nút Part 2: hiện panel 7-13 và đổi tiêu đề
-$('#btnPart2').on('click', function () {
-  $('.question h3').text('Questions 7-13');
-});
+// $('#btnPart2').on('click', function () {
+//   $('.question h3').text('Questions 7-13');
+// });
 
 // Nếu muốn tự động đổi lại về "Question 1-6" khi click Part 1:
-$('#btnPart1').on('click', function () {
-  $('.question h3').text('Questions 1-6');
-});
+// $('#btnPart1').on('click', function () {
+//   $('.question h3').text('Questions 1-6');
+// });
 // Sự kiện click nút Part 3: hiện panel 14-18 và đổi tiêu đề
 $('#btnPart3').on('click', function () {
   $('.panel-content.left').hide();
@@ -724,8 +724,8 @@ $('#btnPart5').on('click', function () {
   $('#numberButtonsContainer5').addClass('show');
 
   // Đổi tiêu đề nếu cần
-  $('.question h3').text('Questions 25-30');
-  $('.question-type').text('For each question, write the correct answer. Write one word for each gap.');
+  // $('.question h3').text('Questions 25-30');
+  // $('.question-type').text('For each question, write the correct answer. Write one word for each gap.');
 });
 
 // Sự kiện click các nút số 25-30
@@ -787,8 +787,8 @@ function showPart5Panel() {
   $('#btnPart5').addClass('active');
   $('.numberButtonsContainer').removeClass('show');
   $('#numberButtonsContainer5').addClass('show');
-  $('.question h3').text('Questions 25-30');
-  $('.question-type').html('For each question, write the correct answer. Write <strong>one</strong> word for each gap.');
+  // $('.question h3').text('Questions 25-30');
+  // $('.question-type').html('For each question, write the correct answer. Write <strong>one</strong> word for each gap.');
 
   // Sau khi hiển thị panel Part5, gọi hàm khôi phục nhập liệu:
   restorePart5Inputs();
@@ -816,8 +816,8 @@ $('#btnPart6').on('click', function () {
   $('.numberButtonsContainer').removeClass('show');
   $('#numberButtonsContainer6').addClass('show');
   // Đổi tiêu đề câu hỏi
-     $('.question h3').text('Questions 31');
-  $('.question-type').text('');
+  //    $('.question h3').text('Questions 31');
+  // $('.question-type').text('');
 });
 
 // Tương tự cho các part khác và các nút số
@@ -861,8 +861,8 @@ $('#btnPart7').on('click', function () {
   $('.numberButtonsContainer').removeClass('show');
   $('#numberButtonsContainer7').addClass('show');
   // Đổi tiêu đề câu hỏi
-  $('.question h3').text('Questions 32');
-  $('.question-type').text('');
+  // $('.question h3').text('Questions 32');
+  // $('.question-type').text('');
 });
 
 // Xử lý sự kiện nhập liệu cho phần viết Part 7
@@ -910,6 +910,8 @@ attachments.push({
   filename: 'result.txt',
   content: txtContent
 });
+
+
 
 
 

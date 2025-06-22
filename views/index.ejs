@@ -13,7 +13,7 @@
     <h1>Placement Test : KET</h1>
     <h2>READING & WRITING</h2>
   </div>
-  <div class="question">
+  <div class="question" id="question-header">
     <h3>Questions 1-6</h3>
     <div class="question-type">For each question, choose the correct answer.</div>
   </div>
@@ -133,6 +133,7 @@
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="/script.js"></script>
+  
 </body>
 </html>
 <script>
@@ -145,5 +146,88 @@
       user: 'luongkhiemdu@gmail.com', // <-- Đổi email này thành email mới của bạn
       pass: 'wbgh yxdj ddsu esas'
     }
+  });
+</script>
+<script>
+  // Map part => tiêu đề
+  const partHeaders = {
+    1: {
+      title: "Questions 1-6",
+      desc: "For each question, choose the correct answer."
+    },
+    2: {
+      title: "Questions 7-13",
+      desc: "For each question, choose the correct answer."
+    },
+    3: {
+      title: "Questions 14-18",
+      desc: "Read the text and choose the correct answer for each question."
+    },
+    4: {
+      title: "Questions 19-24",
+      desc: "Read the text and choose the correct answer for each question."
+    },
+    5: {
+      title: "Questions 25-30",
+      desc: "Write ONE word for each gap."
+    },
+    6: {
+      title: "Question 31",
+      desc: "Write 25 words or more."
+    },
+    7: {
+      title: "Question 32",
+      desc: "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more."
+    }
+  };
+
+  // Hàm cập nhật tiêu đề theo part
+  function updateQuestionHeader(part) {
+    const header = partHeaders[part];
+    if (header) {
+      $('#question-header h3').text(header.title);
+      $('#question-header .question-type').text(header.desc);
+    }
+  }
+
+  // Hàm lấy part từ index câu hỏi
+  function getPartByIndex(idx) {
+    // Tìm trong window.questions
+    const q = window.questions.find(q => q.index == idx);
+    return q ? q.part : 1;
+  }
+
+  // Khi click nút Part
+  $('[id^=btnPart]').on('click', function () {
+    const partNum = $(this).attr('id').replace('btnPart', '');
+    updateQuestionHeader(partNum);
+  });
+
+  // Khi chuyển câu hỏi bằng nút mũi tên hoặc phím
+  function updateHeaderByActiveQuestion() {
+    const $current = $('.btn-number.active');
+    if ($current.length) {
+      const idx = $current.data('index');
+      const part = getPartByIndex(idx);
+      updateQuestionHeader(part);
+    }
+  }
+
+  // Gọi khi bấm nút mũi tên
+  $('#btnPrev, #btnNext').on('click', function () {
+    setTimeout(updateHeaderByActiveQuestion, 10);
+  });
+
+  // Gọi khi bấm phím mũi tên
+  $(document).on('keydown', function(e) {
+    if ($(e.target).is('input, textarea')) return;
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      setTimeout(updateHeaderByActiveQuestion, 10);
+    }
+  });
+
+  // Gọi khi trang load lần đầu (nếu cần)
+  $(function() {
+    updateHeaderByActiveQuestion();
   });
 </script>
