@@ -678,3 +678,13 @@ h2 {
   margin-bottom: 4px;
 }
 }
+.part7-img {
+  max-width: 50%;
+  height: auto;
+  border: 1px solid #ccc;
+}
+@media (max-width: 480px) {
+  .part7-img {
+    max-width: 100% !important;
+  }
+}

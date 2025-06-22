@@ -275,9 +275,9 @@ const writingPanelLeftPart7 = `
     Write <span style="font-weight:bold;">35 words</span> or more.</b>
   </div>
   <div style="text-align:center;">
-    <img src="/images/ket32-1-color.png" alt="Part 7 - Câu 32" style="max-width:100%; height:auto; border:1px solid #ccc;"/>
-    <img src="/images/ket32-2-color.png" alt="Part 7 - Câu 32" style="max-width:100%; height:auto; border:1px solid #ccc;"/>
-    <img src="/images/ket32-3-color.png" alt="Part 7 - Câu 32" style="max-width:100%; height:auto; border:1px solid #ccc;"/>
+    <img src="/images/ket32-1-color.png" alt="Part 7 - Câu 32" class="part7-img"/>
+    <img src="/images/ket32-2-color.png" alt="Part 7 - Câu 32" class="part7-img"/>
+    <img src="/images/ket32-3-color.png" alt="Part 7 - Câu 32" class="part7-img"/>
   </div>
 `;
 const writingPanelRightPart7 = `
