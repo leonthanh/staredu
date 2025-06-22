@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 
 // Trang chủ
 app.get('/', (req, res) => {
-  res.render('index', { questions });
+  res.render('index', { questions: require('./questions') });
 });
 
 // API lấy dữ liệu câu hỏi
