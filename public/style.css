@@ -564,6 +564,11 @@
   color: #222;
   white-space: pre-line;
 }
+.part7_img {
+  max-width: 50%;
+  height: auto;
+  border: 1px solid #ccc;
+}
 @media (max-width: 480px) {
   .container {
     flex-direction: column;
@@ -677,14 +682,7 @@ h2 {
   font-weight: 500;
   margin-bottom: 4px;
 }
-}
-.part7-img {
-  max-width: 50%;
-  height: auto;
-  border: 1px solid #ccc;
-}
-@media (max-width: 480px) {
-  .part7-img {
+.part7_img {
     max-width: 100% !important;
   }
 }
