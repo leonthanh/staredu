@@ -11,25 +11,32 @@ const questions = [
   {
     index: 1,
     part: 1,
-    left: `<div class="email-panel">
-    <div class="email-header">
-      <span><b>To:</b> Lucy</span>
-      <span><b>From:</b> Emma</span>
-    </div>
-    <div class="email-body">
-      Can you come sailing this weekend? My dad's rented a small boat for two days.<br>
-      It doesn't matter that it's your first time.
-    </div>
-  </div>`,
+    left: `
+  <div class="question-title"><strong>1. When is the party?</strong>
+    <button class="flag-btn" data-flag="1" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
+  </div>
+  `,
     right: `
-      <strong>1</strong> <br /> 
-      <button class="flag-btn" data-flag="1" title="Đánh dấu câu này"><span class="flag-icon">&#9873;</span> </button>
-      <h4>Emma says it's not a problem that</h4>
-      <div class="question-options">
-        <label><input type="radio" name="q1" value="A"> A. there isn't much space on the boat.</label><br>
-        <label><input type="radio" name="q1" value="B"> B. the sailing trip will be very short</label><br>
-        <label><input type="radio" name="q1" value="C"> C. Lucy has never sailed before</label>
-      </div>`,
+    <div class="listening-images" style="display:flex; gap:32px; justify-content:center; margin:24px 0;">
+    <div style="text-align:center; cursor:pointer;" onclick="document.getElementById('q1A').checked=true;">
+      <img src="/images/ket1_listening_1A.png" alt="16th" style="width:120px; height:auto;"><br>
+      <label>
+        <input type="radio" id="q1A" name="q1" value="A" style="margin-right:4px;"> <span style="font-weight:bold;">A</span>
+      </label>
+    </div>
+    <div style="text-align:center; cursor:pointer;" onclick="document.getElementById('q1B').checked=true;">
+      <img src="/images/ket1_listening_1B.png" alt="20th" style="width:120px; height:auto;"><br>
+      <label>
+        <input type="radio" id="q1B" name="q1" value="B" style="margin-right:4px;"> <span style="font-weight:bold;">B</span>
+      </label>
+    </div>
+    <div style="text-align:center; cursor:pointer;" onclick="document.getElementById('q1C').checked=true;">
+      <img src="/images/ket1_listening_1C.png" alt="23rd" style="width:120px; height:auto;"><br>
+      <label>
+        <input type="radio" id="q1C" name="q1" value="C" style="margin-right:4px;"> <span style="font-weight:bold;">C</span>
+      </label>
+    </div>
+  </div> `,
     answer: `C`,
   },
   {
