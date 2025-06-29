@@ -294,8 +294,7 @@ const writingPanelRightPart7 = `
 </div>
 
 `;
-
-  
+ 
 const meta = {
   id: 'ket1_reading',
   name: 'KET 1 Reading',
@@ -611,14 +610,14 @@ const questions = [
     part: 6,
     left: writingPart6,
     right: writingPanelRightPart6,
-    answer: "Hi Alex,\n\nI think we should meet at the bus station at 10am on Saturday. Please bring a tent, sleeping bag, and some food. We can go hiking, fishing, and maybe even try cooking over a campfire.\n\nSee you soon!\nPrisha"
+    answer: "Hi Alex,\n\nI think we should meet at the bus station at 10am on Saturday. Please bring a tent, sleeping bag, and some food. We can go hiking, fishing, and maybe even try cooking over a campfire.\n\nSee you soon!\nPrisha\n"
   },
   {
     index: 32,
     part: 7,
     left: writingPanelLeftPart7,
     right: writingPanelRightPart7,
-    answer: "In the morning, Johnny was unhappy because his sister Rachel was listening to music and singing loudly. In the afternoon, Rachel was angry because Johnny was talking loudly on his phone. At night, they played video games together and had fun."
+    answer: "In the morning, Johnny was unhappy because his sister Rachel was listening to music and singing loudly. In the afternoon, Rachel was angry because Johnny was talking loudly on his phone. At night, they played video games together and had fun.\n"
   }
 ];
 
