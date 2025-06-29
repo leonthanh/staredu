@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const questions = require('./questions'); // Đảm bảo đã require đúng
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const multer = require('multer');
@@ -9,13 +8,36 @@ const app = express();
 const PDFDocument = require('pdfkit');
 const upload = multer();
 
-
-// Đường dẫn an toàn cho file dữ liệu
 const DATA_DIR = path.join(__dirname, 'data');
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR);
 
 const RESULTS_FILE = path.join(DATA_DIR, 'results.json');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
+
+// --- Helper: Lấy danh sách đề thi ---
+function getTestList() {
+  // Chỉ lấy file questions_*.js
+  const files = fs.readdirSync(DATA_DIR).filter(f => /^questions_.+\.js$/.test(f));
+  // Lấy meta từ từng file (nên export meta trong mỗi file đề)
+  return files.map(f => {
+    const testId = f.replace(/^questions_/, '').replace(/\.js$/, '');
+    // Đọc meta nếu có
+    let meta = { id: testId, name: testId, desc: '', level: '', count: 0 };
+    try {
+      const q = require(path.join(DATA_DIR, f));
+      meta = Object.assign(meta, q.meta || {}, { count: Array.isArray(q.questions) ? q.questions.length : 0 });
+    } catch {}
+    return meta;
+  });
+}
+
+// --- Helper: Load đề theo testId ---
+function loadQuestions(testId) {
+  const file = path.join(DATA_DIR, `questions_${testId}.js`);
+  if (!fs.existsSync(file)) return null;
+  const q = require(file);
+  return q.questions || [];
+}
 
 // Cấu hình transporter cho Gmail (nên dùng App Password và biến môi trường)
 const transporter = nodemailer.createTransport({
@@ -31,13 +53,42 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
-// Trang chủ
+// Trang chủ: chọn đề thi
 app.get('/', (req, res) => {
-  res.render('index', { questions: require('./questions') });
+  res.render('login');
 });
 
-// API lấy dữ liệu câu hỏi
-app.get('/api/questions', (req, res) => {
+// Trang home: chọn đề thi
+app.get('/home', (req, res) => {
+  const tests = getTestList();
+  res.render('home', { tests });
+});
+
+// Trang home: chọn đề thi
+app.get('/home', (req, res) => {
+  const tests = getTestList();
+  res.render('home', { tests });
+});
+
+// Trang làm bài: truyền testId
+app.get('/test/:testId', (req, res) => {
+  const testId = req.params.testId;
+  const questions = loadQuestions(testId);
+  if (!questions.length) return res.status(404).send('Test not found');
+  // Lấy meta từ file đề thi
+  const file = path.join(DATA_DIR, `questions_${testId}.js`);
+  let testMeta = { id: testId, name: testId, desc: '', level: '', count: questions.length };
+  if (fs.existsSync(file)) {
+    const q = require(file);
+    if (q.meta) testMeta = Object.assign(testMeta, q.meta);
+  }
+  res.render('index', { questions, testId, testMeta });
+});
+
+// API lấy dữ liệu câu hỏi theo testId
+app.get('/api/questions/:testId', (req, res) => {
+  const questions = loadQuestions(req.params.testId);
+  if (!questions.length) return res.status(404).json({ error: 'Not found' });
   res.json(questions);
 });
 
@@ -51,7 +102,7 @@ app.post('/submit', upload.single('pdf'), async (req, res) => {
     if (pdfBuffer) {
       await transporter.sendMail({
         from: '"KET Test" <stareduelt@gmail.com>',
-        to: 'thientinh1984@gmail.com',
+        to: 'thanhlh@siec-star.edu.vn',
         subject: 'Kết quả bài thi mới',
         text: `Số điểm: ${score}/${total}\nThời gian: ${time}\nĐáp án: ${answers}`,
         attachments: [

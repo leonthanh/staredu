@@ -57,7 +57,7 @@
         if (data.success) {
           localStorage.setItem('userName', name);
           localStorage.setItem('userPhone', phone);
-          window.location.href = '/'; // Chuyển về trang làm bài
+          window.location.href = '/home'; // Chuyển về trang home
         } else {
           document.getElementById('loginError').innerText = data.message || 'Login/Register failed!';
           document.getElementById('loginError').style.display = '';
@@ -66,7 +66,7 @@
     };
     // Nếu đã đăng nhập thì chuyển về trang làm bài
     if (localStorage.getItem('userName') && localStorage.getItem('userPhone')) {
-      window.location.href = '/';
+      window.location.href = '/home';
     }
     showLogin(false);
   </script>

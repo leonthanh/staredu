@@ -3,15 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>KET</title>
+  <title><%= testMeta && testMeta.name ? testMeta.name : "KET" %></title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <div class="placement-title">
-    <h1>Placement Test : KET</h1>
-    <h2>READING & WRITING</h2>
+    <h1>
+      <%= testMeta && testMeta.name ? testMeta.name : "Placement Test : KET" %>
+    </h1>
+    <% if (testMeta && testMeta.desc) { %>
+      <h2><%= testMeta.desc %></h2>
+    <% } else { %>
+      <h2>READING & WRITING</h2>
+    <% } %>
+    <% if (testMeta && testMeta.level) { %>
+      <div style="font-size:1.1em;color:#2575fc;margin-top:4px;">Level: <%= testMeta.level %></div>
+    <% } %>
   </div>
   <div class="question" id="question-header">
     <h3>Questions 1-6</h3>
@@ -20,7 +29,7 @@
   <div class="container" id="container">
     <div class="pane left" id="leftPane" tabindex="0">
       <% questions.forEach(q => { %>
-        <div class="panel-content left" data-index="<%= q.index %>" style="display:none;">
+        <div class="panel-content left" data-index="<%= q.index %>" style="display:none;" >
           <%- q.left %>
         </div>
       <% }) %>
@@ -30,7 +39,7 @@
     <div class="pane right" id="rightPane" tabindex="0">
       <% questions.forEach(q => { %>
         <% if (q.index < 7 || q.index > 13) { %>
-          <div class="panel-content right" data-index="<%= q.index %>" style="display:none;">
+          <div class="panel-content right" data-index="<%= q.index %>" style="display:none;" >
             <%- q.right %>
           </div>
         <% } %>
@@ -130,6 +139,8 @@
   </script>
   <script>
     window.questions = JSON.parse(document.getElementById('questions-data').textContent);
+    window.testMeta = <%- JSON.stringify(testMeta || {}) %>;
+    window.testId = "<%= typeof testId !== 'undefined' ? testId : '' %>";
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="/script.js"></script>
