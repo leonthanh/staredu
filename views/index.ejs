@@ -107,11 +107,12 @@
 %>
 <nav class="navbar" id="navbar">
   <% partKeys.forEach((part, idx) => { %>
-    <button id="btnPart<%= part %>" data-part-index="<%= idx %>">Part <%= part %></button>
+    <button id="btnPart<%= part %>" data-part-index="<%= idx %>">
+      <%= (testMeta && testMeta.id && testMeta.id.startsWith('ix_writing')) ? 'Task' : 'Part' %> <%= part %>
+    </button>
     <div id="numberButtonsContainer<%= part %>" class="numberButtonsContainer">
       <% parts[part].forEach(q => { %>
         <button type="button" class="btn-number" data-index="<%= q.index %>">
-          <% /* Cờ sẽ được JS thêm động, không cần render ở đây */ %>
           <%= q.index %>
         </button>
       <% }) %>
