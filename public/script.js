@@ -121,6 +121,7 @@ function finishExam() {
     userAnswers[i] = $(`#part5-q${i}`).val() || '-';
   }
 
+
   let score = 0;
   questions.forEach(q => {
     let userAns = userAnswers[q.index];
@@ -237,18 +238,30 @@ for (let i = 25; i <= 30; i++) {
 doc.text('--- Part 6: Writing (Q31) ---', 10, y);
 y += 10;
 const part6 = localStorage.getItem('writing_part6_answer') || '-';
-doc.text(doc.splitTextToSize(part6, 180), 10, y);
-y += 10 + 8 * Math.ceil(part6.length / 80);
-if (y > 270) {
-  doc.addPage();
-  y = 20;
+const lines6 = doc.splitTextToSize(part6, 180);
+for (let i = 0; i < lines6.length; i++) {
+  if (y > 270) {
+    doc.addPage();
+    y = 20;
+  }
+  doc.text(lines6[i], 10, y);
+  y += 8;
 }
 
 // --- Thêm xuất Part 7 ---
 doc.text('--- Part 7: Writing (Q32) ---', 10, y);
 y += 10;
 const part7 = localStorage.getItem('writing_part7_answer') || '-';
-doc.text(doc.splitTextToSize(part7, 180), 10, y);
+const lines7 = doc.splitTextToSize(part7, 180);
+
+for (let i = 0; i < lines7.length; i++) {
+  if (y > 270) {
+    doc.addPage();
+    y = 20;
+  }
+  doc.text(lines7[i], 10, y);
+  y += 8;
+}
 
 // Gửi file PDF lên server
 const arrayBuffer = doc.output('arraybuffer');
@@ -910,6 +923,8 @@ attachments.push({
   filename: 'result.txt',
   content: txtContent
 });
+
+
 
 
 

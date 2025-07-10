@@ -101,7 +101,7 @@ app.post('/submit', upload.single('pdf'), async (req, res) => {
     // Gửi email cho admin nếu có file PDF
     if (pdfBuffer) {
       await transporter.sendMail({
-        from: '"KET Test" <stareduelt@gmail.com>',
+        from: '"StarEdu Test" <stareduelt@gmail.com>',
         to: 'thanhlh@siec-star.edu.vn',
         subject: 'Kết quả bài thi mới',
         text: `Số điểm: ${score}/${total}\nThời gian: ${time}\nĐáp án: ${answers}`,
@@ -181,7 +181,7 @@ app.post('/login', (req, res) => {
 app.get('/login', (req, res) => {
   res.render('login');
 });
-
+// API lấy danh sách kết quả
 function buildFullResultContent(userAnswers, userName, userPhone, score, total, time) {
   let text = `TEST RESULT\n`;
   text += `Name: ${userName}\nPhone: ${userPhone}\nTime: ${time}\nScore: ${score}/${total}\n\n`;

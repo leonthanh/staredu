@@ -32,7 +32,7 @@ const writingRightTask1 = `
 
 
 <div style="position:relative;">
-    <textarea id="writing-part6-answer" rows="20" style="width:100%; min-height:220px; resize:vertical; font-size:16px; padding:10px; box-sizing:border-box;"></textarea>
+    <textarea id="writing-part6-answer" rows="25" style="width:100%; min-height:220px; resize:vertical; font-size:16px; padding:10px; box-sizing:border-box;"></textarea>
     <span style="position:absolute; right:12px; bottom:8px; color:#222; font-size:16px;">
       Words: <span id="writing-part6-wordcount">0</span>
     </span>  
@@ -84,6 +84,8 @@ const questions = [
   }
  
 ];
+
+const writingQuestions = questions.filter(q => q.index === 1 || q.index === 2);
 
 // Export danh sách câu hỏi
 module.exports = {
